@@ -64,6 +64,13 @@ From pub.dev:
 
 ## Features and bugs
 
+#### Status:
+
+For now, I'm using Restful API, because graphQL is still in early stages after I asked the owners of the site about 
+the status of it. 
+
+Maybe in a future project I will support also GQl API.
+
 #### WARNING 
 
 THIS IS NOT FULLY USABLE.

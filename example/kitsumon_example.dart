@@ -4,8 +4,15 @@
  */
 
 import 'package:kitsumon/kitsumon.dart';
+import 'package:kitsumon/src/core/kitsu.dart';
+
+import 'api_values.dart';
 
 // Just an example of use.
-void main() {
-  final kitsumon = Kitsumon();
+void main() async {
+  final kitsumon = Kitsumon(
+      kitsu: await Kitsu.authenticate(
+    username: APIValues.username,
+    password: APIValues.password,
+  ));
 }
