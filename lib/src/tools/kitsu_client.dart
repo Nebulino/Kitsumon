@@ -66,7 +66,8 @@ class KitsuClient {
           return KitsumonException(description: 'Timeout Exception.');
           // or retry?
         } else if (error.type == DioErrorType.RESPONSE) {
-          final firstException = error.response.data;
+          final firstException = error.response.data[0];
+
           // It can throws multiple exceptions, but I better give the first one for now.
           return ApiException(
             firstException['title'],
@@ -89,15 +90,41 @@ class KitsuClient {
     }
   }
 
-  /// It executes a GET request.
-  Future<dynamic> get(
-      {@required String method, Map<String, dynamic> parameters}) async {
-    return (await _dio.get(method, queryParameters: parameters ?? {})).data;
+  /// It executes the AuthMethods method.
+  ///
+  /// Fetch - retrieve resources
+  Future<dynamic> auth({@required Map<String, dynamic> body}) async {
+    return (await _dio.post('/oauth/token', data: body ?? {})).data;
   }
 
-  /// It executes a POST request.
+  /// It executes a GET method.
+  ///
+  /// Fetch - retrieve resources
+  Future<dynamic> get(
+      {@required String method, Map<String, dynamic> parameters}) async {
+    return (await _dio.get('/edge/${method}', queryParameters: parameters))
+        .data;
+  }
+
+  /// It executes a POST method.
+  ///
+  /// Create - create new resources
   Future<dynamic> post(
       {@required String method, Map<String, dynamic> body}) async {
     return (await _dio.post(method, data: body ?? {})).data;
+  }
+
+  /// It executes a PATCH method.
+  ///
+  /// Update - (partially) modify existing resources
+  Future<dynamic> patch() async {
+    return Future.error(KitsumonException(description: 'Not Yet Implemented.'));
+  }
+
+  /// It executes a DELETE method.
+  ///
+  /// Delete - remove resources
+  Future<dynamic> delete() async {
+    return Future.error(KitsumonException(description: 'Not Yet Implemented.'));
   }
 }

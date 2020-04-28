@@ -5,6 +5,8 @@
 
 import 'package:kitsumon/kitsumon.dart';
 import 'package:kitsumon/src/core/kitsu.dart';
+import 'package:kitsumon/src/helpers/includes.dart';
+import 'package:kitsumon/src/helpers/sparse_fieldsets.dart';
 
 import 'api_values.dart';
 
@@ -15,4 +17,22 @@ void main() async {
     username: APIValues.username,
     password: APIValues.password,
   ));
+
+  print('animeCharacters.fetchCollection()');
+
+  await kitsumon.charactersAndPeople.animeCharacters.fetchCollection(
+    animeID: [
+      11614,
+      42028,
+    ],
+  ).then((response) => print(response));
+
+  print('animeCharacters.fetchResource()');
+  await kitsumon.charactersAndPeople.animeCharacters
+      .fetchResource(
+        11614,
+        includes: Includes(['anime']),
+        sparseFieldSets: SparseFieldSets('anime', ['createdAt']),
+      )
+      .then((response) => print(response));
 }

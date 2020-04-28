@@ -4,16 +4,18 @@
  */
 
 import 'package:kitsumon/kitsu.dart';
-import 'package:kitsumon/kitsumon_exceptions.dart';
 import 'package:kitsumon/src/tools/kitsu_client.dart';
 import 'package:meta/meta.dart';
 
-class AuthenticationMethods {
-  final String _methodRadix = '/oauth';
-  final KitsuClient _client;
+/// It contains the only method available for authentication.
+class AuthenticationMethod {
+  final KitsuClient _api;
 
-  AuthenticationMethods(this._client);
+  AuthenticationMethod._(this._api);
 
+  AuthenticationMethod(KitsuClient kitsuClient) : this._(kitsuClient);
+
+  /// Obtain an authentication object via username and password.
   Future<Authentication> viaPasswordGrant(
       {@required String username, @required String password}) async {
     final body = <String, String>{
@@ -22,8 +24,7 @@ class AuthenticationMethods {
       'password': password,
     };
 
-    return Authentication.fromJson(await _client.post(
-      method: '${_methodRadix}/token',
+    return Authentication.fromJson(await _api.auth(
       body: body,
     ));
   }

@@ -5,7 +5,7 @@
 
 /// Kitsumon Exception Library.
 /// It contains some of the exceptions of my library.
-library scrobblenaut_exceptions;
+library kitsumon_exceptions;
 
 export 'package:kitsumon/src/exceptions/api_exception.dart';
 export 'package:kitsumon/src/exceptions/kitsumon_exception.dart';

@@ -24,4 +24,20 @@ class Pagination {
 
     return Pagination._(limit, offset);
   }
+
+  Map<String, dynamic> format() {
+    var pagination = {};
+    if (limit != null) {
+      pagination['page[limit]'] = limit;
+    }
+
+    if (offset != null) {
+      pagination['page[offset]'] = offset;
+    }
+
+    return pagination;
+  }
+
+  @override
+  String toString() => '[limit] => ${limit} | [offset] => ${offset}';
 }

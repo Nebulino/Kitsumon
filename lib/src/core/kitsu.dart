@@ -25,7 +25,7 @@ class Kitsu {
     String proxy,
   }) async {
     var authentication =
-        await AuthenticationMethods(KitsuClient(proxy: proxy)).viaPasswordGrant(
+        await AuthenticationMethod(KitsuClient(proxy: proxy)).viaPasswordGrant(
       username: username,
       password: password,
     );

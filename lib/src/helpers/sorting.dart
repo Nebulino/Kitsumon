@@ -11,13 +11,16 @@
 /// You can use a comma-delimited list to sort by multiple attributes.
 class Sorting {
   /// This is a list of attributes for sorting
-  final String sortingAttribute;
+  final String attribute;
 
   /// This is a bool for controlling if is descending or ascending.
   final bool descending;
 
-  Sorting(this.sortingAttribute, {this.descending});
+  Sorting(this.attribute, {this.descending = false});
+
+  Map<String, dynamic> format() =>
+      {'sort': '${(descending ? '-' : '')}${attribute}'};
 
   @override
-  String toString() => descending ? '-' : '' + sortingAttribute;
+  String toString() => '[Sorting] => ' + (descending ? '-' : '') + attribute;
 }
