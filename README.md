@@ -83,6 +83,6 @@ so for now all requests should be made with the public client ID and secret.
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: https://github.com/Nebulino/Kitsumon/issues
-
 ##### Copyright © 2020 Nebulino
+
+[tracker]: https://github.com/Nebulino/Kitsumon/issues
