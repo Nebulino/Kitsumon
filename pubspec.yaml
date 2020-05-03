@@ -17,3 +17,5 @@ dev_dependencies:
   test: ^1.14.2
   json_serializable: ^3.3.0
   build_runner: ^1.8.0
+  nebby_dart_utils:
+    git: https://github.com/Nebulino/NebbyDartUtils.git

@@ -6,6 +6,7 @@
 import 'package:kitsumon/kitsumon.dart';
 import 'package:kitsumon/src/core/kitsu.dart';
 import 'package:kitsumon/src/helpers/includes.dart';
+import 'package:nebby_dart_utils/helpers.dart';
 
 import 'api_helper.dart';
 
@@ -24,7 +25,8 @@ void main() async {
       42028,
     ],
     includes: Includes(['anime', 'character', 'castings']),
-  ).then((animeCharacters) => APIUtil.prettyfier(animeCharacters));
+  ).then(
+      (animeCharacters) => PrettyPrinter.prettyPrint(animeCharacters.toJson()));
 
   print('animeCharacters.fetchResource()');
   await kitsumon.charactersAndPeople.animeCharacters
@@ -33,5 +35,6 @@ void main() async {
         includes: Includes(['anime']),
         // sparseFieldSets: SparseFieldSets('anime', ['createdAt']),
       )
-      .then((animeCharacter) => APIUtil.prettyfier(animeCharacter));
+      .then((animeCharacter) =>
+          PrettyPrinter.prettyPrint(animeCharacter.toJson()));
 }
