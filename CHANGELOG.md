@@ -5,7 +5,7 @@
 - Created **Age Rating** object.
 - Created **Anime** object.
 - Created **Anime Attributes** object.
-- Created **Anime Character object.
+- Created **Anime Character** object.
 - Created **Anime Character Attributes** object.
 - Created **Anime Character Relationship** object.
 - Created **Anime Character Result** object.
