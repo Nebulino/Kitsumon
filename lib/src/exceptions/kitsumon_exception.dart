@@ -6,6 +6,7 @@
 /// It implements [Exception] class.
 /// You can find [description] that gives a brief information of what happened.
 class KitsumonException implements Exception {
+  /// The description of the exception
   final String _description;
 
   KitsumonException._(this._description);
@@ -14,6 +15,5 @@ class KitsumonException implements Exception {
 
   @override
   String toString() =>
-      '[KitsumonException]' +
-      (_description != null ? ': ${_description}' : '');
+      '[KitsumonException]' + (_description != null ? ': ${_description}' : '');
 }

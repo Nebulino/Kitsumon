@@ -8,6 +8,7 @@ import 'package:kitsumon/src/methods/characters_and_people/anime_characters.dart
 
 /// It contains all the methods related to Characters and People.
 class CharactersAndPeople {
+  /// This contains the Kitsu Object that helps connecting to the Kitsu API.
   final Kitsu _api;
 
   AnimeCharactersMethods _animeCharactersMethods;

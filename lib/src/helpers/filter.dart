@@ -14,6 +14,8 @@ class Filter {
 
   Filter(this.attribute, this.value);
 
+  /// It formats the filter to help the [Request] object creating
+  /// the Request URL.
   Map<String, dynamic> format() {
     if (value == null) {
       return null;

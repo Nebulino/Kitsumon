@@ -9,6 +9,7 @@ import 'package:meta/meta.dart';
 
 /// It contains the only method available for authentication.
 class AuthenticationMethod {
+  /// This contains the Client that helps connecting to the Kitsu API.
   final KitsuClient _api;
 
   AuthenticationMethod._(this._api);

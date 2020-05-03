@@ -18,6 +18,8 @@ class Sorting {
 
   Sorting(this.attribute, {this.descending = false});
 
+  /// It formats the Sorting object to help the [Request] object creating
+  /// the Request URL.
   Map<String, dynamic> format() =>
       {'sort': '${(descending ? '-' : '')}${attribute}'};
 

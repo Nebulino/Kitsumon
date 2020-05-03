@@ -12,6 +12,7 @@ class Includes {
 
   Includes(this.relationships);
 
+  /// It builds the Includes object.
   Map<String, dynamic> build() => {'include': '${relationships.join(',')}'};
 
   @override

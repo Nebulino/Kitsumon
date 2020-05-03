@@ -25,6 +25,8 @@ class Pagination {
     return Pagination._(limit, offset);
   }
 
+  /// It formats the Pagination object to help the [Request] object creating
+  /// the Request URL.
   Map<String, dynamic> format() {
     var pagination = {};
     if (limit != null) {

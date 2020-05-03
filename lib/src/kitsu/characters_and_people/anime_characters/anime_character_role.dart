@@ -4,7 +4,10 @@
  */
 
 /// It contains different roles an anime character can have.
-enum AnimeCharacterRole { main, supporting }
+enum AnimeCharacterRole {
+  main,
+  supporting,
+}
 
 extension AnimeCharacterRoleExtension on AnimeCharacterRole {
   String get role {

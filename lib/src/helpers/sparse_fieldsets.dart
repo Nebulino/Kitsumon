@@ -13,6 +13,7 @@ class SparseFieldSets {
 
   SparseFieldSets(this.object, this.fields);
 
+  /// It builds the SparseFieldSets object.
   Map<String, dynamic> build() => {'fields[${object}]': '${fields.join(',')}'};
 
   @override

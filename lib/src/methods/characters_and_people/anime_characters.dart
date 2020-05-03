@@ -3,6 +3,7 @@
  * Copyright (c) 2020 Nebulino
  */
 
+import 'package:kitsumon/kitsu.dart';
 import 'package:kitsumon/kitsumon_exceptions.dart';
 import 'package:kitsumon/src/core/kitsu.dart';
 import 'package:kitsumon/src/core/request.dart';
@@ -24,7 +25,7 @@ class AnimeCharactersMethods implements BaseMethod {
   AnimeCharactersMethods(this.api);
 
   /// It fetches the whole collection of Anime Characters.
-  Future<dynamic> fetchCollection({
+  Future<AnimeCharactersResults> fetchCollection({
     List<int> animeID,
     Pagination pagination,
     Sorting sorting,
@@ -40,11 +41,11 @@ class AnimeCharactersMethods implements BaseMethod {
       sparseFieldSets: sparseFieldSets,
     );
 
-    return await request.get();
+    return AnimeCharactersResults.fromJson(await request.get());
   }
 
   /// It fetches a particular Character by his/her/its ID.
-  Future<dynamic> fetchResource(
+  Future<AnimeCharacterResult> fetchResource(
     int characterID, {
     Includes includes,
     SparseFieldSets sparseFieldSets,
@@ -55,7 +56,7 @@ class AnimeCharactersMethods implements BaseMethod {
       sparseFieldSets: sparseFieldSets,
     );
 
-    return await request.fetch(characterID);
+    return AnimeCharacterResult.fromJson(await request.fetch(characterID));
   }
 
   /// It creates a new Anime Character.

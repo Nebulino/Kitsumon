@@ -3,6 +3,7 @@
  * Copyright (c) 2020 Nebulino
  */
 
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/adapter.dart';
@@ -13,6 +14,7 @@ import 'package:meta/meta.dart';
 
 /// It creates a custom instance to send and receive requests.
 class KitsuClient {
+  /// KitsuClient uses Dio.
   Dio _dio;
 
   KitsuClient({Authentication authentication, String proxy}) {
@@ -66,7 +68,7 @@ class KitsuClient {
           return KitsumonException(description: 'Timeout Exception.');
           // or retry?
         } else if (error.type == DioErrorType.RESPONSE) {
-          final firstException = error.response.data[0];
+          final firstException = jsonDecode(error.response.data)['errors'][0];
 
           // It can throws multiple exceptions, but I better give the first one for now.
           return ApiException(

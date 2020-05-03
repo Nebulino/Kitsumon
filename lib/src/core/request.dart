@@ -3,6 +3,8 @@
  * Copyright (c) 2020 Nebulino
  */
 
+import 'dart:convert';
+
 import 'package:kitsumon/src/helpers/filter.dart';
 import 'package:kitsumon/src/helpers/includes.dart';
 import 'package:kitsumon/src/helpers/pagination.dart';
@@ -43,7 +45,7 @@ class Request {
   });
 
   /// It executes a GET request using the Request Parameters.
-  Future<dynamic> get() {
+  Future<dynamic> get() async {
     var parameters = <String, dynamic>{};
 
     // Adds each filter in the request...
@@ -64,12 +66,14 @@ class Request {
       // Adds the needed field in the request...
       ..addAll(sparseFieldSets?.build() ?? {});
 
-    return caller.api.client.get(
+    return jsonDecode(await caller.api.client.get(
       method: caller.methodRadix,
       parameters: parameters,
-    );
+    ));
   }
 
+  /// It executes a GET request using the Request Parameters
+  /// to fetch a resource.
   Future<dynamic> fetch(int resourceID) async {
     var parameters = <String, dynamic>{};
 
@@ -80,9 +84,9 @@ class Request {
       // Adds the needed field in the request...
       ..addAll(sparseFieldSets?.build() ?? {});
 
-    return caller.api.client.get(
+    return jsonDecode(await caller.api.client.get(
       method: caller.methodRadix + '/${resourceID}',
       parameters: parameters,
-    );
+    ));
   }
 }
