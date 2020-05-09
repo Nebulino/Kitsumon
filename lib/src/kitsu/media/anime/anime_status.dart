@@ -1,7 +1,7 @@
-/**
- * Kitsumon - A fox-powered Kitsu.io API Wrapper for Dart.
- * Copyright (c) 2020 Nebulino
- */
+//                                                         //
+// Kitsumon - A fox-powered Kitsu.io API Wrapper for Dart. //
+//              Copyright (c) 2020 Nebulino                //
+//                                                         //
 
 /// It contains different Anime statuses.
 enum AnimeStatus {

@@ -6,7 +6,7 @@ A package to interact with the official
 
 [Kitsu.io API](https://kitsu.io/).
 
-[![Dart Version](https://img.shields.io/badge/Dart-2.7.2-blue.svg?style=flat-square&logo=dart)](https://dart.dev)
+[![Dart Version](https://img.shields.io/badge/Dart-2.8.0-blue.svg?style=flat-square&logo=dart)](https://dart.dev)
 [![Build Status](https://img.shields.io/travis/Nebulino/Kitsumon/master?style=flat-square&logo=travis)](https://travis-ci.org/github/Nebulino/Kitsumon)
 [![Kitsu.io](https://img.shields.io/badge/Kitsu.io-1.0-00aced.svg?style=flat-square)](https://kitsu.docs.apiary.io/)
 [![Nebulino](https://img.shields.io/badge/💬%20Telegram-Nebulino-blue.svg?style=flat-square)](https://t.me/Nebulino/)

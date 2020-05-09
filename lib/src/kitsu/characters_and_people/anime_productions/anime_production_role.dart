@@ -1,7 +1,7 @@
-/**
- * Kitsumon - A fox-powered Kitsu.io API Wrapper for Dart.
- * Copyright (c) 2020 Nebulino
- */
+//                                                         //
+// Kitsumon - A fox-powered Kitsu.io API Wrapper for Dart. //
+//              Copyright (c) 2020 Nebulino                //
+//                                                         //
 
 /// It contains different roles an anime production can have.
 enum AnimeProductionRole { licensor, producer, studio }

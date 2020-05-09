@@ -1,7 +1,7 @@
-/**
- * Kitsumon - A fox-powered Kitsu.io API Wrapper for Dart.
- * Copyright (c) 2020 Nebulino
- */
+//                                                         //
+// Kitsumon - A fox-powered Kitsu.io API Wrapper for Dart. //
+//              Copyright (c) 2020 Nebulino                //
+//                                                         //
 
 import 'package:kitsumon/kitsu.dart';
 import 'package:kitsumon/src/tools/kitsu_client.dart';

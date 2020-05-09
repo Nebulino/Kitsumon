@@ -1,3 +1,9 @@
+## 0.1.1
+
+- Updated Copyright headline for a bump to Dart 2.8.0.
+- Updated the README.md.
+- Updated the pubspec.yaml.
+
 ## 0.1.0
 ### Still working in some aspects of the Wrapper, but some decided structures are *online**.
 
