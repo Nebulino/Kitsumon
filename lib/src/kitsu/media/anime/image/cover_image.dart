@@ -3,30 +3,30 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// This contains different dimension of a Cover Image.
 @JsonSerializable(includeIfNull: false)
 class CoverImage {
   /// It contains the information about the *tiny* version.
   @JsonKey(name: 'tiny')
-  String tiny;
+  String? tiny;
 
   /// It contains the information about the *small* version.
   @JsonKey(name: 'small')
-  String small;
+  String? small;
 
   /// It contains the information about the *large* version.
   @JsonKey(name: 'large')
-  String large;
+  String? large;
 
   /// It contains the information about the *original* version.
   @JsonKey(name: 'original')
-  String original;
+  String? original;
 
   /// It contains the information.
   @JsonKey(name: 'meta')
-  MetaCoverImages meta;
+  MetaCoverImages? meta;
 
   CoverImage({
     this.tiny,

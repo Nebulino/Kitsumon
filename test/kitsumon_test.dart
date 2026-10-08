@@ -3,15 +3,23 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
+import 'package:kitsumon/kitsumon.dart';
 import 'package:test/test.dart';
 
-// Some Kitsumon tests.
 void main() {
-  group('A group of tests', () {
-    setUp(() {});
+  group('Kitsumon Core Initialization', () {
+    test('creates unauthenticated instance correctly', () {
+      final kitsu = Kitsu.noAuth();
+      expect(kitsu.authenticated, isFalse);
+      expect(kitsu.authentication, isNull);
+      expect(kitsu.client, isNotNull);
 
-    test('First Test', () {
-      expect(true, isTrue);
+      final kitsumon = Kitsumon(kitsu: kitsu);
+      expect(kitsumon.api, equals(kitsu));
+      expect(Kitsumon.instance, equals(kitsumon));
+      expect(kitsumon.media, isNotNull);
+      expect(kitsumon.media.anime, isNotNull);
+      expect(kitsumon.charactersAndPeople, isNotNull);
     });
   });
 }

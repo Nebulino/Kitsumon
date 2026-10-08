@@ -3,21 +3,20 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// This contains some data about the relation between two [KitsuBaseObjects].
 ///
 /// [KitsuBaseObjects]: [KitsuBaseObject]
 @JsonSerializable(includeIfNull: false)
 class KitsuBaseRelationData {
-  // TODO: it's a enum?
   /// This is the type of the Kitsu base object.
   @JsonKey(name: 'type')
-  String type;
+  String? type;
 
   /// It's the ID.
   @JsonKey(name: 'id', fromJson: KitsuValueNormalizer.StringToInt)
-  int id;
+  int? id;
 
   KitsuBaseRelationData({
     this.type,

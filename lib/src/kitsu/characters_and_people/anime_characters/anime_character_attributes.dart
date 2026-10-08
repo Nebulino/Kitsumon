@@ -3,24 +3,23 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 @JsonSerializable(includeIfNull: false)
 class AnimeCharacterAttributes {
-
   // TODO: Check the date
   /// The date of creation of the entry.
   @JsonKey(name: 'createdAt')
-  String createdAt;
+  String? createdAt;
 
   // TODO: Check the date
   /// The date of update of the entry.
   @JsonKey(name: 'updatedAt')
-  String updatedAt;
+  String? updatedAt;
 
   /// The anime character role.
   @JsonKey(name: 'role')
-  AnimeCharacterRole role;
+  AnimeCharacterRole? role;
 
   AnimeCharacterAttributes({
     this.createdAt,

@@ -3,14 +3,14 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// This contains different meta information of a Cover Image.
 @JsonSerializable(includeIfNull: false)
 class MetaCoverImages {
   /// This contains different dimension of a Cover Image.
   @JsonKey(name: 'dimensions')
-  CoverDimensions dimensions;
+  CoverDimensions? dimensions;
 
   MetaCoverImages({
     this.dimensions,

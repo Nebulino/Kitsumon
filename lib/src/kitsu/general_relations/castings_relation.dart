@@ -3,18 +3,18 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// This is a general relation from a [KitsuBaseObject] to a **Castings** object.
 @JsonSerializable(includeIfNull: false)
 class CastingsRelation extends KitsuBaseRelation<List<KitsuBaseRelationData>> {
   /// It contains the links about this relation.
   @override
-  KitsuRelationshipLinks links;
+  KitsuRelationshipLinks? links;
 
   /// It contains the data about this relation.
   @override
-  List<KitsuBaseRelationData> data;
+  List<KitsuBaseRelationData>? data;
 
   CastingsRelation({
     this.links,

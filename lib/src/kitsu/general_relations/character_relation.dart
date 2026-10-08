@@ -3,18 +3,18 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// This is a general relation from a [KitsuBaseObject] to a **Character** object.
 @JsonSerializable(includeIfNull: false)
 class CharacterRelation extends KitsuBaseRelation<KitsuBaseRelationData> {
   /// It contains the links about this relation.
   @override
-  KitsuRelationshipLinks links;
+  KitsuRelationshipLinks? links;
 
   /// It contains the data about this relation.
   @override
-  KitsuBaseRelationData data;
+  KitsuBaseRelationData? data;
 
   CharacterRelation({
     this.links,

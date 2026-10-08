@@ -3,18 +3,18 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// It contains the information about the a defined dimension version.
 @JsonSerializable(includeIfNull: false)
 class ImageDimension {
   /// It's the width of the image.
   @JsonKey(name: 'width')
-  int width;
+  int? width;
 
   /// It's the height of the image.
   @JsonKey(name: 'height')
-  int height;
+  int? height;
 
   ImageDimension({
     this.width,

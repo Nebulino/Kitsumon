@@ -9,15 +9,15 @@ import 'package:kitsumon/kitsumon_exceptions.dart';
 class Pagination {
   /// This indicates the limit of a page content.
   /// Resources are paginated in groups of 10 by default and can be increased to a maximum of 20.
-  final int limit;
+  final int? limit;
 
   /// This indicates the offset where the page should start
-  final int offset;
+  final int? offset;
 
-  Pagination._(this.limit, this.offset);
+  const Pagination._(this.limit, this.offset);
 
-  factory Pagination({int limit, int offset}) {
-    if (limit < 0 || limit > 20) {
+  factory Pagination({int? limit, int? offset}) {
+    if (limit != null && (limit < 0 || limit > 20)) {
       throw KitsumonException(
           description: 'The limit must be greater that 0 and lower than 21.');
     }
@@ -28,18 +28,16 @@ class Pagination {
   /// It formats the Pagination object to help the [Request] object creating
   /// the Request URL.
   Map<String, dynamic> format() {
-    var pagination = {};
+    final pagination = <String, dynamic>{};
     if (limit != null) {
       pagination['page[limit]'] = limit;
     }
-
     if (offset != null) {
       pagination['page[offset]'] = offset;
     }
-
     return pagination;
   }
 
   @override
-  String toString() => '[limit] => ${limit} | [offset] => ${offset}';
+  String toString() => '[limit] => $limit | [offset] => $offset';
 }

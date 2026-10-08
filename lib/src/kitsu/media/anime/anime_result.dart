@@ -5,19 +5,18 @@
 
 part of 'package:kitsumon/src/kitsu.dart';
 
-/// It manage Anime Characters data.
+/// It manages a single Anime resource response.
 @JsonSerializable(includeIfNull: false)
-class AnimeCharacterResult
-    extends KitsuResponse<AnimeCharacter, List<KitsuBaseInclusion>> {
-  /// The requested anime character from the request.
+class AnimeResult extends KitsuResponse<Anime, List<KitsuBaseInclusion>> {
+  /// The requested anime from the request.
   @override
-  AnimeCharacter? data;
+  Anime? data;
 
-  /// The list of included relationship.
+  /// The list of included relationships.
   @override
   List<KitsuBaseInclusion>? included;
 
-  AnimeCharacterResult({
+  AnimeResult({
     this.data,
     this.included,
   }) : super(
@@ -25,8 +24,8 @@ class AnimeCharacterResult
           included: included,
         );
 
-  factory AnimeCharacterResult.fromJson(Map<String, dynamic> json) =>
-      _$AnimeCharacterResultFromJson(json);
+  factory AnimeResult.fromJson(Map<String, dynamic> json) =>
+      _$AnimeResultFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AnimeCharacterResultToJson(this);
+  Map<String, dynamic> toJson() => _$AnimeResultToJson(this);
 }

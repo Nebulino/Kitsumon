@@ -1,17 +1,15 @@
-# Defines a default set of lint rules enforced for
-# projects at Google. For details and rationale,
-# see https://github.com/dart-lang/pedantic#enabled-lints.
-include: package:pedantic/analysis_options.yaml
+include: package:lints/recommended.yaml
 
-# For lint rules and documentation, see http://dart-lang.github.io/linter/lints.
-# Uncomment to specify additional rules.
+analyzer:
+  language:
+    strict-casts: false
+    strict-inference: false
+    strict-raw-types: false
+  errors:
+    overridden_fields: ignore
+
 linter:
   rules:
     - camel_case_types
     - cancel_subscriptions
     - test_types_in_equals
-    - iterable_contains_unrelated_type
-
-analyzer:
-#   exclude:
-#     - path/to/excluded/files/**

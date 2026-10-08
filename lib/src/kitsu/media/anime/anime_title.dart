@@ -3,28 +3,40 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// This object contains the anime title in different languages when available.
 @JsonSerializable(includeIfNull: false)
 class AnimeTitle {
   /// The english version of the anime title.
   @JsonKey(name: 'en')
-  String english;
+  String? english;
 
   /// The japanese version written using english characters of the anime title.
   @JsonKey(name: 'en_jp')
-  String japanese_romaji;
+  String? japaneseRomaji;
 
   /// The japanese version of the anime title.
   @JsonKey(name: 'ja_jp')
-  String japanese;
+  String? japanese;
 
   AnimeTitle({
     this.english,
-    this.japanese_romaji,
+    this.japaneseRomaji,
     this.japanese,
   });
+
+  // ignore: non_constant_identifier_names
+  String? get japanese_romaji => japaneseRomaji;
+
+  /// Convenience alias for [english].
+  String? get en => english;
+
+  /// Convenience alias for [japaneseRomaji].
+  String? get enJp => japaneseRomaji;
+
+  /// Convenience alias for [japanese].
+  String? get jaJp => japanese;
 
   factory AnimeTitle.fromJson(Map<String, dynamic> json) =>
       _$AnimeTitleFromJson(json);

@@ -6,16 +6,16 @@
 /// It helps formatting the response.
 class SparseFieldSets {
   /// It indicates the object to reformat.
-  String object;
+  final String object;
 
   /// It indicates the only fields to be returned.
-  List<String> fields;
+  final List<String> fields;
 
   SparseFieldSets(this.object, this.fields);
 
   /// It builds the SparseFieldSets object.
-  Map<String, dynamic> build() => {'fields[${object}]': '${fields.join(',')}'};
+  Map<String, dynamic> build() => {'fields[$object]': fields.join(',')};
 
   @override
-  String toString() => '[SparseFieldSets: ${object}] => ${fields.join(',')}';
+  String toString() => '[SparseFieldSets: $object] => ${fields.join(',')}';
 }

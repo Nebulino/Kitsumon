@@ -9,24 +9,13 @@ enum AnimeStatus {
   finished,
   tba,
   unreleased,
-  upcoming,
-}
+  upcoming;
 
-extension AnimeStatusExtension on AnimeStatus {
-  String get status {
-    switch (this) {
-      case AnimeStatus.current:
-        return 'current';
-      case AnimeStatus.finished:
-        return 'finished';
-      case AnimeStatus.tba:
-        return 'tba';
-      case AnimeStatus.unreleased:
-        return 'unreleased';
-      case AnimeStatus.upcoming:
-        return 'upcoming';
-      default:
-        return null;
-    }
-  }
+  String get status => switch (this) {
+        AnimeStatus.current => 'current',
+        AnimeStatus.finished => 'finished',
+        AnimeStatus.tba => 'tba',
+        AnimeStatus.unreleased => 'unreleased',
+        AnimeStatus.upcoming => 'upcoming',
+      };
 }

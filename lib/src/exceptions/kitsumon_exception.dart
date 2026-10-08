@@ -4,16 +4,14 @@
 //                                                         //
 
 /// It implements [Exception] class.
-/// You can find [description] that gives a brief information of what happened.
+/// You can find [description] that gives brief information of what happened.
 class KitsumonException implements Exception {
   /// The description of the exception
-  final String _description;
+  final String description;
 
-  KitsumonException._(this._description);
-
-  KitsumonException({String description}) : this._(description);
+  KitsumonException({String? description})
+      : description = description ?? '';
 
   @override
-  String toString() =>
-      '[KitsumonException]' + (_description != null ? ': ${_description}' : '');
+  String toString() => '[KitsumonException]: $description';
 }

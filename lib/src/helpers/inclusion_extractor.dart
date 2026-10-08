@@ -22,7 +22,7 @@ dynamic inclusionExtractor(dynamic inclusion) {
         // Don't do anything with the data...
         // TODO: implement all first...
         return null;
-    }
+      }
   }
 
   if (inclusion == null) return null;
@@ -30,12 +30,19 @@ dynamic inclusionExtractor(dynamic inclusion) {
   if (inclusion is List) {
     var fetchedInclusion = <KitsuBaseObject>[];
 
-    inclusion.forEach((dynamic object) {
-      fetchedInclusion.add(objectFetcher(object));
-    });
+    for (var object in inclusion) {
+      if (object is Map<String, dynamic>) {
+        final fetched = objectFetcher(object);
+        if (fetched is KitsuBaseObject) {
+          fetchedInclusion.add(fetched);
+        }
+      }
+    }
     return fetchedInclusion;
-  } else if (inclusion is Map) {
+  } else if (inclusion is Map<String, dynamic>) {
     return objectFetcher(inclusion);
+  } else if (inclusion is Map) {
+    return objectFetcher(Map<String, dynamic>.from(inclusion));
   } else {
     // TODO: check what happens, an exception?
     return null;

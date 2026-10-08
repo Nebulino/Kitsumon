@@ -3,7 +3,7 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// It's the anime character relationship object.
 @JsonSerializable(includeIfNull: false)

@@ -3,38 +3,30 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-import 'package:kitsumon/kitsumon.dart';
-import 'package:kitsumon/src/core/kitsu.dart';
-import 'package:kitsumon/src/helpers/includes.dart';
-import 'package:nebby_dart_utils/helpers.dart';
+import 'dart:convert';
 
-import 'api_helper.dart';
+import 'package:kitsumon/kitsumon.dart';
 
 // Just an example of use.
 void main() async {
-  final kitsumon = Kitsumon(
-      kitsu: await Kitsu.authenticate(
-    username: APIValues.username,
-    password: APIValues.password,
-  ));
+  final kitsumon = Kitsumon(kitsu: Kitsu.noAuth());
 
   print('animeCharacters.fetchCollection()');
-  await kitsumon.charactersAndPeople.animeCharacters.fetchCollection(
+  final animeCharacters =
+      await kitsumon.charactersAndPeople.animeCharacters.fetchCollection(
     animeID: [
       11614,
       42028,
     ],
     includes: Includes(['anime', 'character', 'castings']),
-  ).then(
-      (animeCharacters) => PrettyPrinter.prettyPrint(animeCharacters.toJson()));
+  );
+  print(const JsonEncoder.withIndent('  ').convert(animeCharacters.toJson()));
 
   print('animeCharacters.fetchResource()');
-  await kitsumon.charactersAndPeople.animeCharacters
-      .fetchResource(
-        11614,
-        includes: Includes(['anime']),
-        // sparseFieldSets: SparseFieldSets('anime', ['createdAt']),
-      )
-      .then((animeCharacter) =>
-          PrettyPrinter.prettyPrint(animeCharacter.toJson()));
+  final animeCharacter =
+      await kitsumon.charactersAndPeople.animeCharacters.fetchResource(
+    11614,
+    includes: Includes(['anime']),
+  );
+  print(const JsonEncoder.withIndent('  ').convert(animeCharacter.toJson()));
 }

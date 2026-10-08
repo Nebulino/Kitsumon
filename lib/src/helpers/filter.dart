@@ -7,27 +7,27 @@
 /// attributes or relationships.
 class Filter {
   /// This is the name of the filter, the attribute that filters the query.
-  String attribute;
+  final String attribute;
 
   /// This is the filter query.
-  dynamic value;
+  final dynamic value;
 
   Filter(this.attribute, this.value);
 
   /// It formats the filter to help the [Request] object creating
   /// the Request URL.
-  Map<String, dynamic> format() {
+  Map<String, dynamic>? format() {
     if (value == null) {
       return null;
     }
 
-    if (!(value is List)) {
-      return {'filter[${attribute}]': value};
+    if (value is! List) {
+      return {'filter[$attribute]': value};
     } else {
-      return {'filter[${attribute}]': '${value.join(',')}'};
+      return {'filter[$attribute]': (value as List).join(',')};
     }
   }
 
   @override
-  String toString() => '[${attribute}] => ${value}';
+  String toString() => '[$attribute] => $value';
 }

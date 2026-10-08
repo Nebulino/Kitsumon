@@ -3,7 +3,7 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// It's the anime character object.
 @JsonSerializable(includeIfNull: false)
@@ -11,24 +11,23 @@ class AnimeCharacter extends KitsuBaseObject<AnimeCharacterAttributes,
     AnimeCharacterRelationship> {
   /// It's the ID of an anime character.
   @override
-  int id;
+  int? id;
 
-  // TODO: Or force it to be animeCharacter in wrapper-side? Necessary?
   /// It indicates the type, in this case is *animeCharacter* / *character*.
   @override
-  String type;
+  String? type;
 
   /// It contains the link of the anime character inside the api.
   @override
-  String link;
+  String? link;
 
   /// It contains the attributes of the anime character.
   @override
-  AnimeCharacterAttributes attributes;
+  AnimeCharacterAttributes? attributes;
 
   /// It contains the possible relationships with the anime character.
   @override
-  AnimeCharacterRelationship relationships;
+  AnimeCharacterRelationship? relationships;
 
   AnimeCharacter({
     this.id,

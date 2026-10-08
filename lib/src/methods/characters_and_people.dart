@@ -11,7 +11,7 @@ class CharactersAndPeople {
   /// This contains the Kitsu Object that helps connecting to the Kitsu API.
   final Kitsu _api;
 
-  AnimeCharactersMethods _animeCharactersMethods;
+  late final AnimeCharactersMethods _animeCharactersMethods;
 
   CharactersAndPeople(this._api) {
     _animeCharactersMethods = AnimeCharactersMethods(_api);

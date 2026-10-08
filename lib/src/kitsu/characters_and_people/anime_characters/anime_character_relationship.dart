@@ -3,22 +3,22 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// It's the anime character relationship object.
 @JsonSerializable(includeIfNull: false)
 class AnimeCharacterRelationship {
   /// The information about the related anime with the anime character.
   @JsonKey(name: 'anime')
-  AnimeRelation anime;
+  AnimeRelation? anime;
 
   /// The information about the related character with the anime character.
   @JsonKey(name: 'character')
-  CharacterRelation character;
+  CharacterRelation? character;
 
   /// The information about the related castings with the anime character.
   @JsonKey(name: 'castings')
-  CastingsRelation castings;
+  CastingsRelation? castings;
 
   AnimeCharacterRelationship({
     this.anime,

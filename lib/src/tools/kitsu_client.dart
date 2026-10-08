@@ -6,113 +6,137 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:kitsumon/kitsu.dart';
 import 'package:kitsumon/kitsumon_exceptions.dart';
-import 'package:meta/meta.dart';
 
 /// It creates a custom instance to send and receive requests.
 class KitsuClient {
-  /// KitsuClient uses Dio.
-  Dio _dio;
+  late final Dio _dio;
 
-  KitsuClient({Authentication authentication, String proxy}) {
-    var baseOptions;
+  /// It exposes the internal [Dio] instance.
+  Dio get dio => _dio;
 
-    if (authentication != null) {
-      baseOptions = BaseOptions(
-          baseUrl: 'https://kitsu.io/api',
-          headers: {
-            'Accept': 'application/vnd.api+json',
-            'Content-Type': 'application/vnd.api+json',
-            'Authorization': 'Bearer ${authentication.accessToken}'
-          },
-          responseType: ResponseType.json);
-    } else {
-      baseOptions = BaseOptions(
-          baseUrl: 'https://kitsu.io/api',
-          headers: {
-            'Accept': 'application/vnd.api+json',
-            'Content-Type': 'application/vnd.api+json',
-          },
-          responseType: ResponseType.json);
+  KitsuClient({Dio? dio, Authentication? authentication, String? proxy}) {
+    if (dio != null) {
+      _dio = dio;
+      return;
     }
 
-    _dio = Dio(
-      baseOptions,
-    )..interceptors
-          .add(InterceptorsWrapper(onRequest: (RequestOptions options) {
-        if (options.data is FormData) {
-          (options.data as FormData).fields
-            ..removeWhere((map_entry) => map_entry.value == null)
-            ..removeWhere((map_entry) => map_entry.value == 'null');
-          return options;
-        }
+    final baseOptions = BaseOptions(
+      baseUrl: 'https://kitsu.io/api',
+      headers: {
+        'Accept': 'application/vnd.api+json',
+        'Content-Type': 'application/vnd.api+json',
+        if (authentication?.accessToken != null)
+          'Authorization': 'Bearer ${authentication!.accessToken}',
+      },
+      responseType: ResponseType.json,
+    );
 
-        options.queryParameters?.removeWhere((key, value) => value == null);
-        if (options.data == null) {
-          return options;
-        }
+    _dio = Dio(baseOptions)
+      ..interceptors.add(
+        InterceptorsWrapper(
+          onRequest: (options, handler) {
+            if (options.data is FormData) {
+              (options.data as FormData).fields.removeWhere(
+                    (entry) => entry.value == 'null',
+                  );
+              return handler.next(options);
+            }
 
-        if (options.data is Map) {
-          (options.data as Map).removeWhere((key, value) => value == null);
-        }
+            options.queryParameters.removeWhere((key, value) => value == null);
+            if (options.data == null) {
+              return handler.next(options);
+            }
 
-        return options;
-      }, onResponse: (response) {
-        return response.data;
-      }, onError: (error) {
-        if (error.type == DioErrorType.RECEIVE_TIMEOUT ||
-            error.type == DioErrorType.CONNECT_TIMEOUT) {
-          return KitsumonException(description: 'Timeout Exception.');
-          // or retry?
-        } else if (error.type == DioErrorType.RESPONSE) {
-          final firstException = jsonDecode(error.response.data)['errors'][0];
+            if (options.data is Map) {
+              (options.data as Map).removeWhere((key, value) => value == null);
+            }
 
-          // It can throws multiple exceptions, but I better give the first one for now.
-          return ApiException(
-            firstException['title'],
-            firstException['detail'],
-            code: firstException['code'],
-            status: firstException['status'],
-          );
-        } else {
-          return error;
-        }
-      }));
+            return handler.next(options);
+          },
+          onResponse: (response, handler) {
+            return handler.next(response);
+          },
+          onError: (error, handler) {
+            if (error.type == DioExceptionType.receiveTimeout ||
+                error.type == DioExceptionType.connectionTimeout) {
+              return handler.reject(
+                DioException(
+                  requestOptions: error.requestOptions,
+                  error: KitsumonException(description: 'Timeout Exception.'),
+                ),
+              );
+            } else if (error.type == DioExceptionType.badResponse) {
+              try {
+                final dynamic responseData = error.response?.data;
+                final dynamic decoded = (responseData is String)
+                    ? jsonDecode(responseData)
+                    : responseData;
+                if (decoded is Map &&
+                    decoded['errors'] is List &&
+                    (decoded['errors'] as List).isNotEmpty) {
+                  final firstException = (decoded['errors'] as List)[0];
+                  return handler.reject(
+                    ApiException(
+                      firstException['title']?.toString(),
+                      firstException['detail']?.toString(),
+                      code: firstException['code']?.toString(),
+                      status: firstException['status']?.toString(),
+                      requestOptions: error.requestOptions,
+                      response: error.response,
+                    ),
+                  );
+                }
+              } catch (_) {}
+              return handler.next(error);
+            } else {
+              return handler.next(error);
+            }
+          },
+        ),
+      );
 
-    if (proxy != null) {
-      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-          (client) {
-        client.findProxy = (uri) => 'PROXY ${proxy}';
-        client.badCertificateCallback =
-            (X509Certificate cert, String host, int port) => true;
-      };
+    if (proxy != null && proxy.isNotEmpty) {
+      final adapter = _dio.httpClientAdapter;
+      if (adapter is IOHttpClientAdapter) {
+        adapter.createHttpClient = () {
+          final client = HttpClient();
+          client.findProxy = (uri) => 'PROXY $proxy';
+          client.badCertificateCallback =
+              (X509Certificate cert, String host, int port) => true;
+          return client;
+        };
+      }
     }
   }
 
   /// It executes the AuthMethods method.
   ///
   /// Fetch - retrieve resources
-  Future<dynamic> auth({@required Map<String, dynamic> body}) async {
-    return (await _dio.post('/oauth/token', data: body ?? {})).data;
+  Future<dynamic> auth({required Map<String, dynamic> body}) async {
+    return (await _dio.post('/oauth/token', data: body)).data;
   }
 
   /// It executes a GET method.
   ///
   /// Fetch - retrieve resources
-  Future<dynamic> get(
-      {@required String method, Map<String, dynamic> parameters}) async {
-    return (await _dio.get('/edge/${method}', queryParameters: parameters))
-        .data;
+  Future<dynamic> get({
+    required String method,
+    Map<String, dynamic>? parameters,
+  }) async {
+    return (await _dio.get('/edge/$method', queryParameters: parameters)).data;
   }
 
   /// It executes a POST method.
   ///
   /// Create - create new resources
-  Future<dynamic> post(
-      {@required String method, Map<String, dynamic> body}) async {
+  Future<dynamic> post({
+    required String method,
+    Map<String, dynamic>? body,
+  }) async {
     return (await _dio.post(method, data: body ?? {})).data;
   }
 

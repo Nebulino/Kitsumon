@@ -3,7 +3,7 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// This is the class that represent a [KitsuBaseObject] that can be included
 /// in other KitsuBaseObjects.
@@ -11,7 +11,7 @@ part of kitsu_objects;
 class KitsuBaseInclusion {
   /// This is the type of the [KitsuBaseObject].
   @JsonKey(name: 'type')
-  String type;
+  String? type;
 
   KitsuBaseInclusion({
     this.type,

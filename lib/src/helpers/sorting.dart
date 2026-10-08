@@ -18,11 +18,16 @@ class Sorting {
 
   Sorting(this.attribute, {this.descending = false});
 
+  /// Creates a [Sorting] for multiple attributes.
+  Sorting.multiple(List<String> attributes)
+      : attribute = attributes.join(','),
+        descending = false;
+
   /// It formats the Sorting object to help the [Request] object creating
   /// the Request URL.
   Map<String, dynamic> format() =>
-      {'sort': '${(descending ? '-' : '')}${attribute}'};
+      {'sort': '${descending ? '-' : ''}$attribute'};
 
   @override
-  String toString() => '[Sorting] => ' + (descending ? '-' : '') + attribute;
+  String toString() => '[Sorting] => ${descending ? '-' : ''}$attribute';
 }

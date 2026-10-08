@@ -3,34 +3,34 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
-/// This contains different dimension of a Cover Image.
+/// This contains different dimension of a Poster Image.
 @JsonSerializable(includeIfNull: false)
 class PosterImage {
   /// It contains the information about the *tiny* version.
   @JsonKey(name: 'tiny')
-  String tiny;
+  String? tiny;
 
-  /// It contains the information about the *tiny* version.
+  /// It contains the information about the *small* version.
   @JsonKey(name: 'small')
-  String small;
+  String? small;
 
-  /// It contains the information about the *tiny* version.
+  /// It contains the information about the *medium* version.
   @JsonKey(name: 'medium')
-  String medium;
+  String? medium;
 
-  /// It contains the information about the *tiny* version.
+  /// It contains the information about the *large* version.
   @JsonKey(name: 'large')
-  String large;
+  String? large;
 
-  /// It contains the information about the *tiny* version.
+  /// It contains the information about the *original* version.
   @JsonKey(name: 'original')
-  String original;
+  String? original;
 
   /// It contains the information.
   @JsonKey(name: 'meta')
-  MetaPosterImages meta;
+  MetaPosterImages? meta;
 
   PosterImage({
     this.tiny,

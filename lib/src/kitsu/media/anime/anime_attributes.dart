@@ -3,136 +3,160 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 @JsonSerializable(includeIfNull: false)
 class AnimeAttributes {
   // TODO: check date
   /// The date of creation of the entry.
   @JsonKey(name: 'createdAt')
-  String createdAt;
+  String? createdAt;
 
   // TODO: check date
   /// The date of update of the entry.
   @JsonKey(name: 'updatedAt')
-  String updatedAt;
+  String? updatedAt;
 
   /// The text-like identifier.
   @JsonKey(name: 'slug')
-  String slug;
+  String? slug;
 
   /// The synopsis of the anime.
   @JsonKey(name: 'synopsis')
-  String synopsis;
+  String? synopsis;
+
+  /// The description of the anime.
+  @JsonKey(name: 'description')
+  String? description;
+
+  /// The vertical offset for the cover image.
+  @JsonKey(name: 'coverImageTopOffset')
+  int? coverImageTopOffset;
 
   /// The title of the anime.
   @JsonKey(name: 'titles')
-  AnimeTitle title;
+  AnimeTitle? title;
 
   /// The canonical title of the anime.
   @JsonKey(name: 'canonicalTitle')
-  String canonicalTitle;
+  String? canonicalTitle;
 
   /// A list of abbreviated titles of the anime.
   @JsonKey(name: 'abbreviatedTitles')
-  List<String> abbreviatedTitles;
+  List<String>? abbreviatedTitles;
 
-  // TODO: it needs to be String?
   /// This is the average rating of the anime
   @JsonKey(name: 'averageRating')
-  String averageRating;
+  String? averageRating;
 
   /// This contains different rating frequencies.
-  @JsonKey(name: 'ratingsFrequencies')
-  RatingFrequencies ratingsFrequencies;
+  @JsonKey(name: 'ratingFrequencies')
+  RatingFrequencies? ratingFrequencies;
+
+  @Deprecated('Use ratingFrequencies instead')
+  RatingFrequencies? get ratingsFrequencies => ratingFrequencies;
 
   /// The number of users that have watched the anime.
   @JsonKey(name: 'userCount')
-  int userCount;
+  int? userCount;
 
   /// The number of users that have watched the anime and favorited it.
   @JsonKey(name: 'favoritesCount')
-  int favoritesCount;
+  int? favoritesCount;
 
   // TODO: check date
   /// The starting date of the anime's airing.
   @JsonKey(name: 'startDate')
-  String startDate;
+  String? startDate;
 
   // TODO: check date
   /// The ending date of the anime's airing.
   @JsonKey(name: 'endDate')
-  String endDate;
+  String? endDate;
+
+  /// Next release date or info.
+  @JsonKey(name: 'nextRelease')
+  String? nextRelease;
 
   /// The popularity rank of the anime.
   @JsonKey(name: 'popularityRank')
-  int popularityRank;
+  int? popularityRank;
 
   /// The rating rank of the anime.
   @JsonKey(name: 'ratingRank')
-  int ratingRank;
+  int? ratingRank;
 
   /// The age rating of the anime.
   @JsonKey(name: 'ageRating')
-  AgeRating ageRating;
+  AgeRating? ageRating;
 
   /// A guide for age rating.
   @JsonKey(name: 'ageRatingGuide')
-  String ageRatingGuide;
+  String? ageRatingGuide;
 
   /// The subtype of the anime.
   @JsonKey(name: 'subtype')
-  AnimeSubtype subtype;
+  AnimeSubtype? subtype;
 
   /// The status of airing of the anime.
   @JsonKey(name: 'status')
-  AnimeStatus status;
+  AnimeStatus? status;
 
   /// This is the "To Be Announced" section.
   @JsonKey(name: 'tba')
-  String tba;
+  String? tba;
 
   /// It contains the poster image.
   @JsonKey(name: 'posterImage')
-  PosterImage posterImage;
+  PosterImage? posterImage;
 
   /// It contains the cover image.
   @JsonKey(name: 'coverImage')
-  CoverImage coverImage;
+  CoverImage? coverImage;
 
   /// It contains the number of episodes of the anime.
   @JsonKey(name: 'episodeCount')
-  int episodeCount;
+  int? episodeCount;
 
-  /// It contains the length of the episodes.
+  /// It contains the length of the episodes in minutes.
   @JsonKey(name: 'episodeLength')
-  int episodeLength;
+  int? episodeLength;
 
-  // TODO: need a youtube link builder?
+  /// It contains the total length of the anime in minutes.
+  @JsonKey(name: 'totalLength')
+  int? totalLength;
+
   /// This is the id of a video on [YouTube] about the anime.
   ///
   /// [YouTube]: https://youtube.com
   @JsonKey(name: 'youtubeVideoId')
-  String youtubeVideoId;
+  String? youtubeVideoId;
+
+  /// The show type representation.
+  @JsonKey(name: 'showType')
+  String? showType;
 
   /// True if is not safe for work.
   @JsonKey(name: 'nsfw')
-  bool nsfw;
+  bool? nsfw;
 
   AnimeAttributes({
     this.createdAt,
     this.updatedAt,
     this.slug,
     this.synopsis,
+    this.description,
+    this.coverImageTopOffset,
     this.title,
     this.canonicalTitle,
     this.abbreviatedTitles,
     this.averageRating,
-    this.ratingsFrequencies,
+    this.ratingFrequencies,
     this.userCount,
     this.favoritesCount,
     this.startDate,
     this.endDate,
+    this.nextRelease,
     this.popularityRank,
     this.ratingRank,
     this.ageRating,
@@ -144,7 +168,9 @@ class AnimeAttributes {
     this.coverImage,
     this.episodeCount,
     this.episodeLength,
+    this.totalLength,
     this.youtubeVideoId,
+    this.showType,
     this.nsfw,
   });
 

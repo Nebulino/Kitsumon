@@ -5,31 +5,22 @@
 
 /// It contains different Anime Subtypes.
 enum AnimeSubtype {
+  // ignore: constant_identifier_names
   ONA,
+  // ignore: constant_identifier_names
   OVA,
+  // ignore: constant_identifier_names
   TV,
   movie,
   music,
-  special,
-}
+  special;
 
-extension AnimeSubtypeExtension on AnimeSubtype {
-  String get type {
-    switch (this) {
-      case AnimeSubtype.ONA:
-        return 'ONA';
-      case AnimeSubtype.OVA:
-        return 'OVA';
-      case AnimeSubtype.TV:
-        return 'TV';
-      case AnimeSubtype.movie:
-        return 'movie';
-      case AnimeSubtype.music:
-        return 'music';
-      case AnimeSubtype.special:
-        return 'special';
-      default:
-        return null;
-    }
-  }
+  String get type => switch (this) {
+        AnimeSubtype.ONA => 'ONA',
+        AnimeSubtype.OVA => 'OVA',
+        AnimeSubtype.TV => 'TV',
+        AnimeSubtype.movie => 'movie',
+        AnimeSubtype.music => 'music',
+        AnimeSubtype.special => 'special',
+      };
 }

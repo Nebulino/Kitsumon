@@ -4,19 +4,14 @@
 //                                                         //
 
 /// It contains different roles an anime production can have.
-enum AnimeProductionRole { licensor, producer, studio }
+enum AnimeProductionRole {
+  licensor,
+  producer,
+  studio;
 
-extension AnimeProductionRoleExtension on AnimeProductionRole {
-  String get role {
-    switch (this) {
-      case AnimeProductionRole.licensor:
-        return 'licensor';
-      case AnimeProductionRole.producer:
-        return 'producer';
-      case AnimeProductionRole.studio:
-        return 'studio';
-      default:
-        return null;
-    }
-  }
+  String get role => switch (this) {
+        AnimeProductionRole.licensor => 'licensor',
+        AnimeProductionRole.producer => 'producer',
+        AnimeProductionRole.studio => 'studio',
+      };
 }

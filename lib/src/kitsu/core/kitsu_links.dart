@@ -3,25 +3,33 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// This object represents the links variable inside a [KitsuResponse].
 @JsonSerializable(includeIfNull: false)
 class KitsuLinks {
-  // TODO: transform in URI?
   /// This is the link of the first [KitsuBaseObject] inside the *data*
   /// variable.
   @JsonKey(name: 'first')
-  String first;
+  String? first;
 
-  // TODO: transform in URI?
+  /// This is the link of the previous page of [KitsuBaseObject]s.
+  @JsonKey(name: 'prev')
+  String? prev;
+
+  /// This is the link of the next page of [KitsuBaseObject]s.
+  @JsonKey(name: 'next')
+  String? next;
+
   /// This is the link of the last [KitsuBaseObject] inside the *data*
   /// variable.
   @JsonKey(name: 'last')
-  String last;
+  String? last;
 
   KitsuLinks({
     this.first,
+    this.prev,
+    this.next,
     this.last,
   });
 

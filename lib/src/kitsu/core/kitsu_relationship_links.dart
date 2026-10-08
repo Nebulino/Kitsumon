@@ -3,20 +3,18 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// This object represents the links variable inside a [KitsuResponse].
 @JsonSerializable(includeIfNull: false)
 class KitsuRelationshipLinks {
-  // TODO: transform in URI?
   /// This is the link of the relation inside the Kitsu Api.
   @JsonKey(name: 'self')
-  String self;
+  String? self;
 
-  // TODO: transform in URI?
   /// This is the link of the related information inside the Kitsu Api.
   @JsonKey(name: 'related')
-  String related;
+  String? related;
 
   KitsuRelationshipLinks({
     this.self,

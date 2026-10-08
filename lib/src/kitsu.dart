@@ -17,6 +17,11 @@ import 'package:kitsumon/src/kitsu/media/anime/age_rating.dart';
 import 'package:kitsumon/src/kitsu/media/anime/anime_status.dart';
 import 'package:kitsumon/src/kitsu/media/anime/anime_subtype.dart';
 
+export 'package:kitsumon/src/kitsu/characters_and_people/anime_characters/anime_character_role.dart';
+export 'package:kitsumon/src/kitsu/media/anime/age_rating.dart';
+export 'package:kitsumon/src/kitsu/media/anime/anime_status.dart';
+export 'package:kitsumon/src/kitsu/media/anime/anime_subtype.dart';
+
 // g.dart
 part 'kitsu.g.dart';
 
@@ -63,6 +68,8 @@ part 'package:kitsumon/src/kitsu/media/anime/image/poster_image.dart';
 
 part 'package:kitsumon/src/kitsu/media/anime/anime_attributes.dart';
 part 'package:kitsumon/src/kitsu/media/anime/anime.dart';
+part 'package:kitsumon/src/kitsu/media/anime/anime_result.dart';
+part 'package:kitsumon/src/kitsu/media/anime/anime_results.dart';
 part 'package:kitsumon/src/kitsu/media/anime/anime_relationship.dart';
 part 'package:kitsumon/src/kitsu/media/anime/anime_title.dart';
 part 'package:kitsumon/src/kitsu/media/anime/rating_frequencies.dart';

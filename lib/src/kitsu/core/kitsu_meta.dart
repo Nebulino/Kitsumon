@@ -3,14 +3,14 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// This object adds information from a [KitsuResponse].
 @JsonSerializable(includeIfNull: false)
 class KitsuMeta {
   /// It count the number of data inside [KitsuResponse.data] variable.
   @JsonKey(name: 'count')
-  int count;
+  int? count;
 
   KitsuMeta({
     this.count,

@@ -3,7 +3,7 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
-part of kitsu_objects;
+part of 'package:kitsumon/src/kitsu.dart';
 
 /// This represents a relation between two [KitsuBaseObjects].
 ///
@@ -11,11 +11,11 @@ part of kitsu_objects;
 class KitsuBaseRelation<Data> {
   /// It contains some links about this relation.
   @JsonKey(name: 'links')
-  KitsuRelationshipLinks links;
+  KitsuRelationshipLinks? links;
 
   /// It contains some data about this relation.
   @JsonKey(name: 'data')
-  Data data;
+  Data? data;
 
   KitsuBaseRelation({
     this.links,

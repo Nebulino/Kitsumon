@@ -20,20 +20,20 @@ class Request {
   final BaseMethod caller;
 
   /// It contains all the filter applied to the request.
-  final List<Filter> filters;
+  final List<Filter>? filters;
 
   /// It contains the information about a possible pagination.
-  final Pagination pagination;
+  final Pagination? pagination;
 
   /// It contains the information about a possible sorting.
-  final Sorting sorting;
+  final Sorting? sorting;
 
   /// It contains the related resources to include into the response.
-  final Includes includes;
+  final Includes? includes;
 
   /// It helps returning a specific set of fields in the response of the
   /// request.
-  final SparseFieldSets sparseFieldSets;
+  final SparseFieldSets? sparseFieldSets;
 
   Request(
     this.caller, {
@@ -46,47 +46,64 @@ class Request {
 
   /// It executes a GET request using the Request Parameters.
   Future<dynamic> get() async {
-    var parameters = <String, dynamic>{};
+    final parameters = <String, dynamic>{};
 
     // Adds each filter in the request...
-    filters.forEach((Filter filter) {
-      parameters.addAll(filter?.format() ?? {});
-    });
+    if (filters != null) {
+      for (var filter in filters!) {
+        final formatted = filter.format();
+        if (formatted != null) {
+          parameters.addAll(formatted);
+        }
+      }
+    }
 
     // Adds the pagination in the request...
-    parameters
-      ..addAll(pagination?.format() ?? {})
+    if (pagination != null) {
+      parameters.addAll(pagination!.format());
+    }
 
-      // Adds the sorting in the request...
-      ..addAll(sorting?.format() ?? {})
+    // Adds the sorting in the request...
+    if (sorting != null) {
+      parameters.addAll(sorting!.format());
+    }
 
-      // Adds the includes in the request...
-      ..addAll(includes?.build() ?? {})
+    // Adds the includes in the request...
+    if (includes != null) {
+      parameters.addAll(includes!.build());
+    }
 
-      // Adds the needed field in the request...
-      ..addAll(sparseFieldSets?.build() ?? {});
+    // Adds the needed field in the request...
+    if (sparseFieldSets != null) {
+      parameters.addAll(sparseFieldSets!.build());
+    }
 
-    return jsonDecode(await caller.api.client.get(
+    final response = await caller.api.client.get(
       method: caller.methodRadix,
       parameters: parameters,
-    ));
+    );
+    return (response is String) ? jsonDecode(response) : response;
   }
 
   /// It executes a GET request using the Request Parameters
   /// to fetch a resource.
   Future<dynamic> fetch(int resourceID) async {
-    var parameters = <String, dynamic>{};
+    final parameters = <String, dynamic>{};
 
     // Adds the includes in the request...
-    parameters
-      ..addAll(includes?.build() ?? {})
+    if (includes != null) {
+      parameters.addAll(includes!.build());
+    }
 
-      // Adds the needed field in the request...
-      ..addAll(sparseFieldSets?.build() ?? {});
+    // Adds the needed field in the request...
+    if (sparseFieldSets != null) {
+      parameters.addAll(sparseFieldSets!.build());
+    }
 
-    return jsonDecode(await caller.api.client.get(
-      method: caller.methodRadix + '/${resourceID}',
+    final response = await caller.api.client.get(
+      method: '${caller.methodRadix}/$resourceID',
       parameters: parameters,
-    ));
+    );
+    return (response is String) ? jsonDecode(response) : response;
   }
 }

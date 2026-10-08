@@ -5,25 +5,19 @@
 
 /// It contains different Age Ratings.
 enum AgeRating {
+  // ignore: constant_identifier_names
   G,
+  // ignore: constant_identifier_names
   PG,
+  // ignore: constant_identifier_names
   R,
-  R18,
-}
+  // ignore: constant_identifier_names
+  R18;
 
-extension AgeRatingExtension on AgeRating {
-  String get rate {
-    switch (this) {
-      case AgeRating.G:
-        return 'G';
-      case AgeRating.PG:
-        return 'PG';
-      case AgeRating.R:
-        return 'R';
-      case AgeRating.R18:
-        return 'R18';
-      default:
-        return null;
-    }
-  }
+  String get rate => switch (this) {
+        AgeRating.G => 'G',
+        AgeRating.PG => 'PG',
+        AgeRating.R => 'R',
+        AgeRating.R18 => 'R18',
+      };
 }

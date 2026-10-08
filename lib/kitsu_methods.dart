@@ -8,3 +8,6 @@ library kitsu_methods;
 
 export 'package:kitsumon/src/methods/authentication_method.dart';
 export 'package:kitsumon/src/methods/characters_and_people.dart';
+export 'package:kitsumon/src/methods/characters_and_people/anime_characters.dart';
+export 'package:kitsumon/src/methods/media.dart';
+export 'package:kitsumon/src/methods/media/anime.dart';

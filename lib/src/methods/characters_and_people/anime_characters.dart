@@ -14,7 +14,7 @@ import 'package:kitsumon/src/helpers/sorting.dart';
 import 'package:kitsumon/src/helpers/sparse_fieldsets.dart';
 import 'package:kitsumon/src/methods/core/base_method.dart';
 
-///The methods about Anime Characters.
+/// The methods about Anime Characters.
 class AnimeCharactersMethods implements BaseMethod {
   @override
   final String methodRadix = 'anime-characters';
@@ -26,15 +26,20 @@ class AnimeCharactersMethods implements BaseMethod {
 
   /// It fetches the whole collection of Anime Characters.
   Future<AnimeCharactersResults> fetchCollection({
-    List<int> animeID,
-    Pagination pagination,
-    Sorting sorting,
-    Includes includes,
-    SparseFieldSets sparseFieldSets,
+    List<int>? animeID,
+    Pagination? pagination,
+    Sorting? sorting,
+    Includes? includes,
+    SparseFieldSets? sparseFieldSets,
   }) async {
+    final filters = <Filter>[];
+    if (animeID != null && animeID.isNotEmpty) {
+      filters.add(Filter('animeId', animeID));
+    }
+
     final request = Request(
       this,
-      filters: [Filter('animeId', animeID)],
+      filters: filters,
       pagination: pagination,
       sorting: sorting,
       includes: includes,
@@ -47,8 +52,8 @@ class AnimeCharactersMethods implements BaseMethod {
   /// It fetches a particular Character by his/her/its ID.
   Future<AnimeCharacterResult> fetchResource(
     int characterID, {
-    Includes includes,
-    SparseFieldSets sparseFieldSets,
+    Includes? includes,
+    SparseFieldSets? sparseFieldSets,
   }) async {
     final request = Request(
       this,
@@ -61,33 +66,33 @@ class AnimeCharactersMethods implements BaseMethod {
 
   /// It creates a new Anime Character.
   Future<dynamic> createResource({
-    List<int> animeID,
-    Pagination pagination,
-    Sorting sorting,
-    Includes includes,
-    SparseFieldSets sparseFieldSets,
+    List<int>? animeID,
+    Pagination? pagination,
+    Sorting? sorting,
+    Includes? includes,
+    SparseFieldSets? sparseFieldSets,
   }) async {
     return Future.error(KitsumonException(description: 'Not Yet Implemented.'));
   }
 
   /// It updates a new Anime Character.
   Future<dynamic> updateResource({
-    List<int> animeID,
-    Pagination pagination,
-    Sorting sorting,
-    Includes includes,
-    SparseFieldSets sparseFieldSets,
+    List<int>? animeID,
+    Pagination? pagination,
+    Sorting? sorting,
+    Includes? includes,
+    SparseFieldSets? sparseFieldSets,
   }) async {
     return Future.error(KitsumonException(description: 'Not Yet Implemented.'));
   }
 
   /// It deletes an Anime Character.
   Future<dynamic> deleteResource({
-    List<int> animeID,
-    Pagination pagination,
-    Sorting sorting,
-    Includes includes,
-    SparseFieldSets sparseFieldSets,
+    List<int>? animeID,
+    Pagination? pagination,
+    Sorting? sorting,
+    Includes? includes,
+    SparseFieldSets? sparseFieldSets,
   }) async {
     return Future.error(KitsumonException(description: 'Not Yet Implemented.'));
   }

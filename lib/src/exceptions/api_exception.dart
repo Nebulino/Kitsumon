@@ -5,9 +5,9 @@
 
 import 'package:dio/dio.dart';
 
-/// It extends [DioError] class.
-/// You can find [errorCode] and [description] received from the Telegram Api.
-class ApiException extends DioError {
+/// It extends [DioException] class.
+/// You can find [code] and [detail] received from the Kitsu API.
+class ApiException extends DioException {
   /// The title of the API exception.
   final String title;
 
@@ -21,24 +21,34 @@ class ApiException extends DioError {
   final int status;
 
   ApiException._({
-    this.title,
-    this.detail,
-    this.code,
-    this.status,
+    required this.title,
+    required this.detail,
+    required this.code,
+    required this.status,
+    required super.requestOptions,
+    super.response,
   });
 
-  ApiException(String title, String detail, {String code, String status})
-      : this._(
-          title: title,
-          detail: detail,
-          code: int.parse(code) ?? 0,
-          status: int.parse(status) ?? 400,
+  ApiException(
+    String? title,
+    String? detail, {
+    String? code,
+    String? status,
+    RequestOptions? requestOptions,
+    Response? response,
+  }) : this._(
+          title: title ?? '',
+          detail: detail ?? '',
+          code: code != null ? int.tryParse(code) ?? 0 : 0,
+          status: status != null ? int.tryParse(status) ?? 400 : 400,
+          requestOptions: requestOptions ?? RequestOptions(path: ''),
+          response: response,
         );
 
   @override
   String toString() => '[KitsuRestException]:\n'
-      '- title:  ${title}\n'
-      '- detail: ${detail}\n'
-      '- code:   ${code}\n'
-      '- status: ${status}';
+      '- title:  $title\n'
+      '- detail: $detail\n'
+      '- code:   $code\n'
+      '- status: $status';
 }

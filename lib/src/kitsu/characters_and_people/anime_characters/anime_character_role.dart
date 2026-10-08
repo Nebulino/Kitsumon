@@ -6,18 +6,10 @@
 /// It contains different roles an anime character can have.
 enum AnimeCharacterRole {
   main,
-  supporting,
-}
+  supporting;
 
-extension AnimeCharacterRoleExtension on AnimeCharacterRole {
-  String get role {
-    switch (this) {
-      case AnimeCharacterRole.main:
-        return 'main';
-      case AnimeCharacterRole.supporting:
-        return 'supporting';
-      default:
-        return null;
-    }
-  }
+  String get role => switch (this) {
+        AnimeCharacterRole.main => 'main',
+        AnimeCharacterRole.supporting => 'supporting',
+      };
 }
