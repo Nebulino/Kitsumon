@@ -13,6 +13,8 @@ name: Publish to pub.dev
 # publishing be configured in its Admin tab.
 
 on:
+  # Manual run: in the GitHub UI pick the TAG as the ref, not a branch —
+  # OIDC only authorizes runs whose ref matches the tag pattern on pub.dev.
   workflow_dispatch:
   push:
     tags:
