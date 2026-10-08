@@ -1,88 +1,123 @@
 <h1 align="center">Kitsumon</h1>
 
 <div align="center">
-A fox powered Kitsu.io API Wrapper for Dart.
-A package to interact with the official 
+A fox-powered Kitsu.io API wrapper for Dart & Flutter.
 
-[Kitsu.io API](https://kitsu.io/).
-
-[![Dart Version](https://img.shields.io/badge/Dart-2.8.0-blue.svg?style=flat-square&logo=dart)](https://dart.dev)
-[![Build Status](https://img.shields.io/travis/Nebulino/Kitsumon/master?style=flat-square&logo=travis)](https://travis-ci.org/github/Nebulino/Kitsumon)
-[![Kitsu.io](https://img.shields.io/badge/Kitsu.io-1.0-00aced.svg?style=flat-square)](https://kitsu.docs.apiary.io/)
-[![Nebulino](https://img.shields.io/badge/💬%20Telegram-Nebulino-blue.svg?style=flat-square)](https://t.me/Nebulino/)
+[![Pub Version](https://img.shields.io/pub/v/kitsumon?style=flat-square&logo=dart)](https://pub.dev/packages/kitsumon)
+[![Dart SDK](https://img.shields.io/badge/Dart-3.0%2B-blue.svg?style=flat-square&logo=dart)](https://dart.dev)
+[![Kitsu API](https://img.shields.io/badge/API-Kitsu.io-00aced.svg?style=flat-square)](https://kitsu.docs.apiary.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 
 </div>
 
+---
+
 ## Meaning
 
-From Kitsu, you know what is it if you're here, and Kitsumon (詰問), question or asking in japanese.
+From *Kitsu*, the anime discovery platform, and *Kitsumon* (詰問), which means questioning or asking in Japanese.
 
-I love Kitsu.io and with the will of interfacing with their API, asking... questioning... or just sending queries.
+If you love Kitsu.io and want a clean, typed way of querying their API for anime, manga, and characters, Kitsumon is made for you!
 
-So here we go~ Kitsumon is born!
+---
 
-## Disclaimer
+## Installation
 
-I'm doing it just for fun, so... use at your own risk.
+Add `kitsumon` to your `pubspec.yaml`:
 
-I hope it will become something great.
+```yaml
+dependencies:
+  kitsumon: ^0.2.0
+```
 
-^-^
+Or via terminal:
+
+```bash
+dart pub add kitsumon
+```
+
+---
 
 ## Usage
 
-A simple usage example:
+### 1. Basic Initialization
 
 ```dart
 import 'package:kitsumon/kitsumon.dart';
 
-// A simple example...
-// For more, check the example folder.
 void main() async {
-  final kitsumon = Kitsumon();
-  
-  // Start using the Wrapper...
+  // Unauthenticated client
+  final kitsumon = Kitsumon(kitsu: Kitsu.noAuth());
+
+  // Or with credentials (when supported)
+  // final kitsumon = Kitsumon(kitsu: Kitsu(auth: KitsuAuth(...)));
 }
-
 ```
 
-## Get Kitsumon
+### 2. Fetching Anime Collections with Filters
 
-Add Kitsumon dependency on `pubspec.yaml`:
+```dart
+import 'package:kitsumon/kitsumon.dart';
 
-From GitHub (for example: branch-name >> dev-build):
-```yaml
-dependencies:
-  kitsumon:
-    git: https://github.com/Nebulino/Kitsumon.git
-      ref: branch-name
+void main() async {
+  final kitsumon = Kitsumon(kitsu: Kitsu.noAuth());
+
+  // Fetch anime by text search, season, or category
+  final result = await kitsumon.media.anime.fetchCollection(
+    text: 'Cowboy Bebop',
+    pageLimit: 10,
+    sort: [Sort.popularityRankAscending],
+  );
+
+  for (final anime in result.data ?? []) {
+    print('${anime.attributes?.canonicalTitle} (Rating: ${anime.attributes?.averageRating})');
+  }
+}
 ```
 
-From pub.dev:
+### 3. Fetching Anime Characters & Details
 
-##### Coming soon... I hope...
+```dart
+import 'package:kitsumon/kitsumon.dart';
 
-## Features and bugs
+void main() async {
+  final kitsumon = Kitsumon(kitsu: Kitsu.noAuth());
 
-#### Status
+  // Fetch anime character details
+  final characterResponse = await kitsumon.charactersAndPeople.animeCharacters.fetchResource(
+    11614,
+    includes: Includes(['anime']),
+    sparseFieldSets: SparseFieldSets('anime', ['canonicalTitle', 'createdAt']),
+  );
 
-For now, I'm using Restful API, because graphQL is still in early stages after I asked the owners of the site about 
-the status of it. 
+  print('Role: ${characterResponse.data?.attributes?.role}');
+}
+```
 
-Maybe in a future project I will support also GQl API.
+---
 
-#### WARNING 
+## Building from Source
 
-THIS IS NOT FULLY USABLE.
-IT'S A WORK IN PROGRESS, FEEL FREE TO SHARE YOUR THOUGHTS HOW TO MAKE IT BETTER. 
+To regenerate `.g.dart` serialization code:
 
-#### AUTHENTICATION
+```bash
+sh ./build.sh
+```
 
-**NOTE:** Application registration has not yet been implemented, 
-so for now all requests should be made with the public client ID and secret.
+Or directly via `build_runner`:
 
-Please file feature requests and bugs at the [issue tracker][tracker].
+```bash
+dart run build_runner build
+```
 
-##### Copyright © 2020 Nebulino
 
-[tracker]: https://github.com/Nebulino/Kitsumon/issues
+---
+
+## Features and Bugs
+
+Please file feature requests and bug reports on the [GitHub Issue Tracker](https://github.com/Nebulino/Kitsumon/issues).
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).

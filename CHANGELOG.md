@@ -1,8 +1,17 @@
+## 0.2.0
+
+- Migrated to Dart 3 sound null safety with modern SDK constraint.
+- Upgraded dependencies: Dio 5.7, json_annotation 4.9, crypto 3.0.6.
+- Implemented and wired full Anime methods (`fetchResource`, `fetchCollection`, `fetchBySlug`, `fetchTrending`).
+- Added typed sorting, pagination, sparse fieldsets, and includes helpers.
+- Added comprehensive unit tests and example scripts.
+
 ## 0.1.1
 
 - Updated Copyright headline for a bump to Dart 2.8.0.
 - Updated the README.md.
 - Updated the pubspec.yaml.
+
 
 ## 0.1.0
 ### Still working in some aspects of the Wrapper, but some decided structures are *online**.
