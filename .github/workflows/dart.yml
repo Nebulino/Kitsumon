@@ -1,43 +1,65 @@
-name: Dart CI - Publish
+name: Publish to pub.dev
+
+# Pub.dev → package → Admin → "Automated publishing" must be enabled with:
+#   repository:  Nebulino/Kitsumon
+#   tag pattern: v{{version}}
+# Then publish with:
+#   git tag v0.3.0 && git push origin v0.3.0
+# (`version:` in pubspec.yaml must match the tag, minus the leading "v")
+#
+# NOTE: this package does not exist on pub.dev yet — the first publication must
+# be done once by hand (`dart pub publish`) so the package exists and can be
+# claimed by the nebulino.cloud verified publisher. Only then can automated
+# publishing be configured in its Admin tab.
 
 on:
+  workflow_dispatch:
   push:
-    branches: [ publish ]
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-*'
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  publish_kitsumon:
-    runs-on: ubuntu-latest
+  publish:
+    permissions:
+      id-token: write   # required for OIDC authentication to pub.dev
+      contents: read
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
 
-    steps:
-    - uses: actions/checkout@v4
-
-    - uses: dart-lang/setup-dart@v1
-
-    - name: Install dependencies
-      run: dart pub get
-
-    - name: Clean the project if necessary
-      run: sh ./clean.sh
-
-    - name: Generate .g.dart object files
-      run: dart run build_runner build
-
-
-    - name: Run static analysis
-      run: dart analyze
-
-    - name: Run tests
-      run: dart test
-
-    - name: Publish on pub.dev
-      id: publish_package
-      uses: k-paxian/dart-package-publisher@master
-      with:
-        credentialJson: ${{ secrets.CREDENTIAL_JSON }}
-
-    - name: Commit release tag
-      if: steps.publish_package.outputs.success
-      uses: hole19/git-tag-action@master
-      env:
-        TAG: ${{steps.publish_package.outputs.package}}-${{steps.publish_package.outputs.localVersion}}
-        GITHUB_TOKEN: ${{ secrets.OAOTH_GITHUB_TOKEN }}
+# ---------------------------------------------------------------------------
+# FALLBACK — see PaperPlane/.github/workflows/dart.yml for the full rationale.
+# Replace the job above with this one only if OIDC publishing is unavailable:
+#
+#  publish:
+#    runs-on: ubuntu-latest
+#    permissions:
+#      contents: write
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: dart-lang/setup-dart@v1
+#      - run: dart pub get
+#      - name: Check generated code is not stale
+#        run: |
+#          dart run build_runner build --delete-conflicting-outputs
+#          if ! git diff --quiet -- '*.g.dart'; then
+#            echo "::error::Stale *.g.dart files. Run ./build.sh and commit before tagging."
+#            git --no-pager diff --stat -- '*.g.dart'
+#            exit 1
+#          fi
+#      - name: Publish on pub.dev
+#        id: publish_package
+#        uses: k-paxian/dart-package-publisher@master
+#        with:
+#          credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+#          force: true
+#      - name: Commit release tag
+#        if: steps.publish_package.outputs.success
+#        uses: hole19/git-tag-action@master
+#        env:
+#          TAG: ${{ steps.publish_package.outputs.package }}-${{ steps.publish_package.outputs.localVersion }}
+#          GITHUB_TOKEN: ${{ secrets.OAOTH_GITHUB_TOKEN }}
+# ---------------------------------------------------------------------------
