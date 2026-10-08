@@ -1,6 +1,6 @@
 name: kitsumon
 description: A fox-powered content discovery platform that helps tracking anime and manga. A clean Dart wrapper for Kitsu.io / kitsu.app.
-version: 0.2.0
+version: 0.2.1
 homepage: https://github.com/Nebulino/Kitsumon
 repository: https://github.com/Nebulino/Kitsumon
 issue_tracker: https://github.com/Nebulino/Kitsumon/issues

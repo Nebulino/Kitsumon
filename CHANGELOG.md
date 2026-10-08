@@ -1,3 +1,8 @@
+## 0.2.1
+
+- Set up automated publishing to pub.dev via GitHub Actions (OIDC) with a
+  release gate on the `publish` branch.
+
 ## 0.2.0
 
 - Migrated to Dart 3 sound null safety with modern SDK constraint.
