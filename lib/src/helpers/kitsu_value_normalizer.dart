@@ -63,4 +63,19 @@ class KitsuValueNormalizer {
 
   // ignore: non_constant_identifier_names
   static int? StringToInt(dynamic supposedInt) => stringToInt(supposedInt);
+
+  /// It transforms the `data` member of a JSON:API document into a list of
+  /// resource objects.
+  ///
+  /// A collection answers with a list and a single resource with one object:
+  /// the object is handled like a collection of one. `null` stays `null`.
+  static List<Map<String, dynamic>>? resourceList(dynamic data) {
+    if (data == null) return null;
+    if (data is Map) return [Map<String, dynamic>.from(data)];
+    if (data is List) {
+      return [for (final item in data) Map<String, dynamic>.from(item as Map)];
+    }
+    throw KitsumonException(
+        description: 'Supposed resource data not recognized.');
+  }
 }

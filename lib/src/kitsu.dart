@@ -16,11 +16,15 @@ import 'package:kitsumon/src/kitsu/characters_and_people/anime_characters/anime_
 import 'package:kitsumon/src/kitsu/media/anime/age_rating.dart';
 import 'package:kitsumon/src/kitsu/media/anime/anime_status.dart';
 import 'package:kitsumon/src/kitsu/media/anime/anime_subtype.dart';
+import 'package:kitsumon/src/kitsu/media/manga/manga_status.dart';
+import 'package:kitsumon/src/kitsu/media/manga/manga_subtype.dart';
 
 export 'package:kitsumon/src/kitsu/characters_and_people/anime_characters/anime_character_role.dart';
 export 'package:kitsumon/src/kitsu/media/anime/age_rating.dart';
 export 'package:kitsumon/src/kitsu/media/anime/anime_status.dart';
 export 'package:kitsumon/src/kitsu/media/anime/anime_subtype.dart';
+export 'package:kitsumon/src/kitsu/media/manga/manga_status.dart';
+export 'package:kitsumon/src/kitsu/media/manga/manga_subtype.dart';
 
 // g.dart
 part 'kitsu.g.dart';
@@ -39,6 +43,7 @@ part 'package:kitsumon/src/kitsu/core/kitsu_relationship_links.dart';
 part 'package:kitsumon/src/kitsu/general_relations/anime_relation.dart';
 part 'package:kitsumon/src/kitsu/general_relations/castings_relation.dart';
 part 'package:kitsumon/src/kitsu/general_relations/character_relation.dart';
+part 'package:kitsumon/src/kitsu/general_relations/kitsu_relation.dart';
 
 // // // Authentication // // //
 
@@ -73,6 +78,27 @@ part 'package:kitsumon/src/kitsu/media/anime/anime_results.dart';
 part 'package:kitsumon/src/kitsu/media/anime/anime_relationship.dart';
 part 'package:kitsumon/src/kitsu/media/anime/anime_title.dart';
 part 'package:kitsumon/src/kitsu/media/anime/rating_frequencies.dart';
+
+// Manga
+part 'package:kitsumon/src/kitsu/media/manga/manga_attributes.dart';
+part 'package:kitsumon/src/kitsu/media/manga/manga.dart';
+part 'package:kitsumon/src/kitsu/media/manga/manga_result.dart';
+part 'package:kitsumon/src/kitsu/media/manga/manga_results.dart';
+part 'package:kitsumon/src/kitsu/media/manga/manga_relationship.dart';
+part 'package:kitsumon/src/kitsu/media/manga/manga_title.dart';
+
+// Categories
+part 'package:kitsumon/src/kitsu/media/categories/category_attributes.dart';
+part 'package:kitsumon/src/kitsu/media/categories/category.dart';
+part 'package:kitsumon/src/kitsu/media/categories/category_result.dart';
+part 'package:kitsumon/src/kitsu/media/categories/category_results.dart';
+part 'package:kitsumon/src/kitsu/media/categories/category_relationship.dart';
+
+// Genres
+part 'package:kitsumon/src/kitsu/media/genres/genre_attributes.dart';
+part 'package:kitsumon/src/kitsu/media/genres/genre.dart';
+part 'package:kitsumon/src/kitsu/media/genres/genre_result.dart';
+part 'package:kitsumon/src/kitsu/media/genres/genre_results.dart';
 
 // // // Posts // // //
 

@@ -25,6 +25,21 @@
   aggregator entry points.
 - CI now runs `dart analyze --fatal-infos .` over the whole repository,
   `example/` included.
+- Implemented the rest of Phase 1 of the roadmap:
+  - `MangaMethods` (`fetchCollection`, `fetchResource`, `fetchBySlug`) over `/edge/manga`, with typed
+    filters for subtype, status, categories, genres, ids and slug, plus sorting, pagination, includes and
+    sparse fieldsets.
+  - `TrendingMangaMethods.fetchTrending()` over `/edge/trending/manga`, tolerating an answer without a
+    `meta` block.
+  - `CategoriesMethods` and `GenresMethods` (`fetchCollection`, `fetchResource`) with typed
+    `filter[title]`/`filter[slug]`/`filter[name]` parameters and their `Category`/`Genre` models,
+    including the boolean `nsfw` and the child/media counters.
+  - New models mirroring the real API: `Manga`, `MangaAttributes` (all 29 attributes, nullable counts and
+    dates, `averageRating` kept as the string Kitsu sends), `MangaResults`, `MangaRelationship`,
+    `MangaSubtype`, `MangaStatus`, `Category`, `CategoryAttributes`, `Genre`, `GenreAttributes`.
+  - `Media` now exposes `manga`, `trendingManga`, `categories` and `genres` next to `anime`.
+  - Tests for all of it, driven by three responses captured from the live API and stored under
+    `test/fixtures/`, asserting both the request sent and the model parsed.
 
 ## 0.2.1
 

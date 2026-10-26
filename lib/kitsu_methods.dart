@@ -11,3 +11,7 @@ export 'package:kitsumon/src/methods/characters_and_people.dart';
 export 'package:kitsumon/src/methods/characters_and_people/anime_characters.dart';
 export 'package:kitsumon/src/methods/media.dart';
 export 'package:kitsumon/src/methods/media/anime.dart';
+export 'package:kitsumon/src/methods/media/categories.dart';
+export 'package:kitsumon/src/methods/media/genres.dart';
+export 'package:kitsumon/src/methods/media/manga.dart';
+export 'package:kitsumon/src/methods/media/trending_manga.dart';
