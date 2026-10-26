@@ -22,8 +22,8 @@ jobs:
       run: dart run build_runner build
 
 
-    - name: Run static analysis
-      run: dart analyze
+    - name: Run static analysis (whole repository, including example/)
+      run: dart analyze --fatal-infos .
 
     - name: Run tests
       run: dart test

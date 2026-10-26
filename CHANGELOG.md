@@ -1,3 +1,31 @@
+## Unreleased
+
+- `KitsuClient` now registers the same interceptor stack on a `Dio` you inject
+  as on one it builds itself: null query/body parameters are stripped, timeouts
+  surface as a `KitsumonException` (as the `DioException.error`) and JSON:API
+  `errors[]` payloads surface as an `ApiException`. For an injected `Dio` only
+  the missing `baseUrl`, `Accept`/`Content-Type` and `Authorization` values are
+  filled in; anything you configured is left untouched. Registration is
+  idempotent: wrapping the same `Dio` in several clients adds the interceptor
+  once. **Behaviour change:** clients built with `KitsuClient(dio: ...)` used to
+  skip all of this.
+- TLS certificates are now always verified. Using a `proxy` no longer installs a
+  `badCertificateCallback` that accepted any certificate for any host; the proxy
+  is still configured through `HttpClient.findProxy`. **Behaviour change:**
+  proxies that relied on certificate errors being ignored will now fail the
+  handshake.
+- Added an offline test harness (`test/support/fake_http_client.dart`): a `dio`
+  `HttpClientAdapter` that records requests and answers from canned JSON:API
+  payloads, plus helpers to build a `Kitsu`/`KitsuClient` around it.
+- Added tests for `KitsuClient` (GET/POST shapes, headers, bearer token,
+  timeouts, `errors[]`, injected `Dio`, proxy), `Request`, `Filter`,
+  `Pagination`, `Sorting`, `Includes`, `SparseFieldSets`, `KitsuValueNormalizer`,
+  `inclusionExtractor`, the JSON:API models (`KitsuResponse`, `KitsuBaseObject`,
+  relations, `Authentication`), `AuthenticationMethod` and the `Kitsumon`
+  aggregator entry points.
+- CI now runs `dart analyze --fatal-infos .` over the whole repository,
+  `example/` included.
+
 ## 0.2.1
 
 - Set up automated publishing to pub.dev via GitHub Actions (OIDC) with a
