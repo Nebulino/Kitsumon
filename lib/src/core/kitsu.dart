@@ -36,9 +36,28 @@ class Kitsu {
       KitsuClient(
         authentication: authentication,
         proxy: proxy,
+        onUnauthorized: () => _refreshAuthentication(
+          AuthenticationMethod(KitsuClient(proxy: proxy)),
+          authentication,
+        ),
       ),
       authentication,
     );
+  }
+
+  /// Exchanges the refresh token of [expired] for a fresh [Authentication].
+  ///
+  /// It returns `null` when [expired] carries no refresh token, which makes
+  /// the client surface the original 401 instead of retrying.
+  static Future<Authentication?> _refreshAuthentication(
+    AuthenticationMethod method,
+    Authentication? expired,
+  ) async {
+    final refreshToken = expired?.refreshToken;
+    if (refreshToken == null) {
+      return null;
+    }
+    return method.refresh(refreshToken: refreshToken);
   }
 
   /// It returns if You're authenticated or not.
@@ -49,4 +68,10 @@ class Kitsu {
 
   /// It returns the authentication object if authenticated.
   Authentication? get authentication => _authentication;
+
+  /// Use this to access the [UsersMethods] of this session.
+  UsersMethods get users => UsersMethods(this);
+
+  /// Use this to access the [LibraryEntriesMethods] of this session.
+  LibraryEntriesMethods get libraryEntries => LibraryEntriesMethods(this);
 }

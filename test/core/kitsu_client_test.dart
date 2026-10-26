@@ -92,7 +92,7 @@ void main() {
 
       group('POST', () {
         test('sends the body and strips null members', () async {
-          adapter.stub('POST', '/library-entries',
+          adapter.stub('POST', '/edge/library-entries',
               body: {'data': {'id': '9'}}, statusCode: 201);
           final client = build(adapter);
 
@@ -103,13 +103,13 @@ void main() {
 
           final request = adapter.lastRequest;
           expect(request.method, equals('POST'));
-          expect(request.path, equals('/library-entries'));
+          expect(request.path, equals('/edge/library-entries'));
           expect(request.data, equals({'status': 'current', 'progress': 3}));
           expect(response, equals({'data': {'id': '9'}}));
         });
 
         test('sends an empty object when there is no body', () async {
-          adapter.stub('POST', '/library-entries', body: <String, dynamic>{});
+          adapter.stub('POST', '/edge/library-entries', body: <String, dynamic>{});
           final client = build(adapter);
 
           await client.post(method: 'library-entries');
@@ -136,28 +136,32 @@ void main() {
       });
 
       group('PATCH and DELETE', () {
-        test('patch() fails as not yet implemented, without any request',
+        test('patch() sends the body to /edge/<method> and returns the data',
             () async {
+          adapter.stub('PATCH', '/edge/library-entries/42',
+              body: {'data': {'id': '42', 'type': 'libraryEntries'}});
           final client = build(adapter);
 
-          await expectLater(
-            client.patch(),
-            throwsA(isA<KitsumonException>().having(
-                (e) => e.description, 'description', 'Not Yet Implemented.')),
+          final response = await client.patch(
+            method: 'library-entries/42',
+            body: {'progress': 13},
           );
-          expect(adapter.requests, isEmpty);
+
+          expect(adapter.lastRequest.method, equals('PATCH'));
+          expect(adapter.lastRequest.path, equals('/edge/library-entries/42'));
+          expect(adapter.lastRequest.data, equals({'progress': 13}));
+          expect(response, equals({'data': {'id': '42', 'type': 'libraryEntries'}}));
         });
 
-        test('delete() fails as not yet implemented, without any request',
-            () async {
+        test('delete() sends a DELETE to /edge/<method>', () async {
+          adapter.stub('DELETE', '/edge/library-entries/42',
+              body: <String, dynamic>{}, statusCode: 204);
           final client = build(adapter);
 
-          await expectLater(
-            client.delete(),
-            throwsA(isA<KitsumonException>().having(
-                (e) => e.description, 'description', 'Not Yet Implemented.')),
-          );
-          expect(adapter.requests, isEmpty);
+          await client.delete(method: 'library-entries/42');
+
+          expect(adapter.lastRequest.method, equals('DELETE'));
+          expect(adapter.lastRequest.path, equals('/edge/library-entries/42'));
         });
       });
 
@@ -173,7 +177,7 @@ void main() {
         });
 
         test('sends the JSON:API Content-Type header with a body', () async {
-          adapter.stub('POST', '/library-entries', body: <String, dynamic>{});
+          adapter.stub('POST', '/edge/library-entries', body: <String, dynamic>{});
           final client = build(adapter);
 
           await client.post(method: 'library-entries', body: {'a': 1});
@@ -541,7 +545,7 @@ void main() {
 
     test('stripping nulls is applied once per request', () async {
       final adapter = FakeHttpClientAdapter()
-        ..stub('POST', '/library-entries', body: <String, dynamic>{});
+        ..stub('POST', '/edge/library-entries', body: <String, dynamic>{});
       final dio = Dio(BaseOptions(baseUrl: 'https://kitsu.io/api'))
         ..httpClientAdapter = adapter;
       KitsuClient(dio: dio);

@@ -25,6 +25,24 @@
   aggregator entry points.
 - CI now runs `dart analyze --fatal-infos .` over the whole repository,
   `example/` included.
+- Implemented Phase 2 of the roadmap, the tracing core:
+  - `UsersMethods` (`fetchCollection` with `filter[name]`/`filter[slug]`, `fetchResource`, `fetchBySlug`,
+    `fetchCurrentUser` via `filter[self]=true`) and the `User` model with all 33 attributes Kitsu returns.
+  - `LibraryEntriesMethods`: `fetchCollection` (user, media type, kind, statuses, `include=media`),
+    `fetchResource`, `createResource`, `updateResource` and `deleteResource`, all speaking JSON:API
+    documents; every write refuses with a `KitsumonException` and sends nothing when the session is not
+    authenticated.
+  - `LibraryEntry` / `LibraryEntryAttributes` with `typedStatus` (an unknown status is kept raw and never
+    throws) and `rating`, derived from Kitsu's `ratingTwenty`.
+  - `KitsuClient.post`/`patch`/`delete` now behave like `get` and prefix `/edge/`; `patch` and `delete`
+    replace the "Not Yet Implemented" stubs.
+  - OAuth refresh: `Authentication.tokenType` reads `token_type` (it was always null before), `isExpired`
+    compares `created_at + expires_in` with a 30 s margin, `AuthenticationMethod.refresh` uses the
+    refresh-token grant, and a 401 refreshes once, rewrites the bearer header and replays the request once
+    — a second 401 surfaces the original error instead of looping.
+- Fixed: `toJson()` now writes `links` in the object form `fromJson` reads back, so a round-trip no longer
+  throws; `Anime.relationships` is parsed instead of being dropped, and an unknown relationship type no
+  longer fails a whole response.
 - Implemented the rest of Phase 1 of the roadmap:
   - `MangaMethods` (`fetchCollection`, `fetchResource`, `fetchBySlug`) over `/edge/manga`, with typed
     filters for subtype, status, categories, genres, ids and slug, plus sorting, pagination, includes and

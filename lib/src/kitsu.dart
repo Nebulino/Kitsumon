@@ -18,6 +18,7 @@ import 'package:kitsumon/src/kitsu/media/anime/anime_status.dart';
 import 'package:kitsumon/src/kitsu/media/anime/anime_subtype.dart';
 import 'package:kitsumon/src/kitsu/media/manga/manga_status.dart';
 import 'package:kitsumon/src/kitsu/media/manga/manga_subtype.dart';
+import 'package:kitsumon/src/kitsu/user_libraries/library_entry_status.dart';
 
 export 'package:kitsumon/src/kitsu/characters_and_people/anime_characters/anime_character_role.dart';
 export 'package:kitsumon/src/kitsu/media/anime/age_rating.dart';
@@ -25,6 +26,7 @@ export 'package:kitsumon/src/kitsu/media/anime/anime_status.dart';
 export 'package:kitsumon/src/kitsu/media/anime/anime_subtype.dart';
 export 'package:kitsumon/src/kitsu/media/manga/manga_status.dart';
 export 'package:kitsumon/src/kitsu/media/manga/manga_subtype.dart';
+export 'package:kitsumon/src/kitsu/user_libraries/library_entry_status.dart';
 
 // g.dart
 part 'kitsu.g.dart';
@@ -108,4 +110,16 @@ part 'package:kitsumon/src/kitsu/media/genres/genre_results.dart';
 
 // // // User Libraries // // //
 
+part 'package:kitsumon/src/kitsu/user_libraries/library_entry.dart';
+part 'package:kitsumon/src/kitsu/user_libraries/library_entry_attributes.dart';
+part 'package:kitsumon/src/kitsu/user_libraries/library_entry_relationship.dart';
+part 'package:kitsumon/src/kitsu/user_libraries/library_entry_result.dart';
+part 'package:kitsumon/src/kitsu/user_libraries/library_entry_results.dart';
+
 // // // Users // // //
+
+part 'package:kitsumon/src/kitsu/users/user.dart';
+part 'package:kitsumon/src/kitsu/users/user_attributes.dart';
+part 'package:kitsumon/src/kitsu/users/user_relationship.dart';
+part 'package:kitsumon/src/kitsu/users/user_result.dart';
+part 'package:kitsumon/src/kitsu/users/user_results.dart';

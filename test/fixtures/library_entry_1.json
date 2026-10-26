@@ -1,0 +1,45 @@
+{
+  "data": {
+    "id": "42",
+    "type": "libraryEntries",
+    "links": {
+      "self": "https://kitsu.io/api/edge/library-entries/42"
+    },
+    "attributes": {
+      "createdAt": "2024-01-10T08:30:00.000Z",
+      "updatedAt": "2024-02-15T19:45:00.000Z",
+      "status": "current",
+      "progress": 12,
+      "progressedAt": "2024-02-15T19:45:00.000Z",
+      "reconsuming": false,
+      "reconsumeCount": 1,
+      "notes": "Rewatching on Blu-ray.",
+      "private": false,
+      "ratingTwenty": 18,
+      "startedAt": "2024-01-10T00:00:00.000Z",
+      "finishedAt": null
+    },
+    "relationships": {
+      "user": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/library-entries/42/relationships/user",
+          "related": "https://kitsu.io/api/edge/library-entries/42/user"
+        },
+        "data": {
+          "type": "users",
+          "id": "1"
+        }
+      },
+      "media": {
+        "links": {
+          "self": "https://kitsu.io/api/edge/library-entries/42/relationships/media",
+          "related": "https://kitsu.io/api/edge/library-entries/42/media"
+        },
+        "data": {
+          "type": "anime",
+          "id": "1"
+        }
+      }
+    }
+  }
+}

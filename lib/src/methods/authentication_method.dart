@@ -3,19 +3,22 @@
 //              Copyright (c) 2020 Nebulino                //
 //                                                         //
 
+import 'dart:convert';
+
 import 'package:kitsumon/kitsu.dart';
 import 'package:kitsumon/src/tools/kitsu_client.dart';
 
-/// It contains the only method available for authentication.
+/// Methods for obtaining and refreshing OAuth2 tokens on Kitsu.
 class AuthenticationMethod {
-  /// This contains the Client that helps connecting to the Kitsu API.
   final KitsuClient _api;
 
   AuthenticationMethod._(this._api);
 
+  /// Creates an [AuthenticationMethod] backed by [kitsuClient].
   AuthenticationMethod(KitsuClient kitsuClient) : this._(kitsuClient);
 
-  /// Obtain an authentication object via username and password.
+  /// Obtains an [Authentication] token bundle using the resource-owner password
+  /// credentials grant (`grant_type=password`).
   Future<Authentication> viaPasswordGrant({
     required String username,
     required String password,
@@ -26,8 +29,25 @@ class AuthenticationMethod {
       'password': password,
     };
 
-    return Authentication.fromJson(await _api.auth(
-      body: body,
-    ));
+    return _parseAuthentication(await _api.auth(body: body));
+  }
+
+  /// Obtains a fresh [Authentication] token bundle from [refreshToken] using
+  /// the refresh-token grant (`grant_type=refresh_token`).
+  Future<Authentication> refresh({
+    required String refreshToken,
+  }) async {
+    final body = <String, String>{
+      'grant_type': 'refresh_token',
+      'refresh_token': refreshToken,
+    };
+
+    return _parseAuthentication(await _api.auth(body: body));
+  }
+
+  Authentication _parseAuthentication(dynamic response) {
+    final dynamic decoded =
+        (response is String) ? jsonDecode(response) : response;
+    return Authentication.fromJson(decoded as Map<String, dynamic>);
   }
 }

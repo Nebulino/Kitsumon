@@ -15,3 +15,5 @@ export 'package:kitsumon/src/methods/media/categories.dart';
 export 'package:kitsumon/src/methods/media/genres.dart';
 export 'package:kitsumon/src/methods/media/manga.dart';
 export 'package:kitsumon/src/methods/media/trending_manga.dart';
+export 'package:kitsumon/src/methods/user_libraries/library_entries.dart';
+export 'package:kitsumon/src/methods/users/users.dart';

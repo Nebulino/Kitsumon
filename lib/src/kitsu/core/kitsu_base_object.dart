@@ -17,7 +17,11 @@ class KitsuBaseObject<Attributes, Relationships> extends KitsuBaseInclusion {
   String? type;
 
   /// It contains the link of the Kitsu base object inside the api.
-  @JsonKey(name: 'links', fromJson: KitsuValueNormalizer.ApiSelfLinkExtractor)
+  @JsonKey(
+    name: 'links',
+    fromJson: KitsuValueNormalizer.ApiSelfLinkExtractor,
+    toJson: KitsuValueNormalizer.ApiSelfLinkToJson,
+  )
   String? link;
 
   /// It contains the attributes of the Kitsu base object.

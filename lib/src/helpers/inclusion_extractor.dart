@@ -15,6 +15,12 @@ dynamic inclusionExtractor(dynamic inclusion) {
     switch (object['type']) {
       case 'anime':
         return Anime.fromJson(object);
+      case 'manga':
+        return Manga.fromJson(object);
+      case 'users':
+        return User.fromJson(object);
+      case 'libraryEntries':
+        return LibraryEntry.fromJson(object);
       case 'animeCharacters':
       case 'characters':
         return AnimeCharacter.fromJson(object);

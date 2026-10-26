@@ -52,6 +52,16 @@ class KitsuValueNormalizer {
   static String? ApiSelfLinkExtractor(dynamic object) =>
       apiSelfLinkExtractor(object);
 
+  /// Wraps a `self` link string back into the JSON:API `links` object.
+  static Map<String, dynamic>? apiSelfLinkToJson(String? link) {
+    if (link == null) return null;
+    return <String, dynamic>{'self': link};
+  }
+
+  // ignore: non_constant_identifier_names
+  static Map<String, dynamic>? ApiSelfLinkToJson(String? link) =>
+      apiSelfLinkToJson(link);
+
   /// It transforms a Kitsu supposed int from a String or number.
   static int? stringToInt(dynamic supposedInt) {
     if (supposedInt == null) return null;
