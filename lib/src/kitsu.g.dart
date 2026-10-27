@@ -251,6 +251,233 @@ Map<String, dynamic> _$AnimeCharactersResultsToJson(
   'links': ?instance.links,
 };
 
+Character _$CharacterFromJson(Map<String, dynamic> json) => Character(
+  id: KitsuValueNormalizer.StringToInt(json['id']),
+  type: json['type'] as String?,
+  link: KitsuValueNormalizer.ApiSelfLinkExtractor(json['links']),
+  attributes: json['attributes'] == null
+      ? null
+      : CharacterAttributes.fromJson(
+          json['attributes'] as Map<String, dynamic>,
+        ),
+  relationships: json['relationships'] == null
+      ? null
+      : CharacterRelationship.fromJson(
+          json['relationships'] as Map<String, dynamic>,
+        ),
+);
+
+Map<String, dynamic> _$CharacterToJson(Character instance) => <String, dynamic>{
+  'id': ?instance.id,
+  'type': ?instance.type,
+  'links': ?KitsuValueNormalizer.ApiSelfLinkToJson(instance.link),
+  'attributes': ?instance.attributes,
+  'relationships': ?instance.relationships,
+};
+
+CharacterAttributes _$CharacterAttributesFromJson(Map<String, dynamic> json) =>
+    CharacterAttributes(
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
+      slug: json['slug'] as String?,
+      names: json['names'] as Map<String, dynamic>?,
+      canonicalName: json['canonicalName'] as String?,
+      otherNames: (json['otherNames'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      name: json['name'] as String?,
+      malId: json['malId'],
+      description: json['description'] as String?,
+      image: json['image'] as Map<String, dynamic>?,
+    );
+
+Map<String, dynamic> _$CharacterAttributesToJson(
+  CharacterAttributes instance,
+) => <String, dynamic>{
+  'createdAt': ?instance.createdAt,
+  'updatedAt': ?instance.updatedAt,
+  'slug': ?instance.slug,
+  'names': ?instance.names,
+  'canonicalName': ?instance.canonicalName,
+  'otherNames': ?instance.otherNames,
+  'name': ?instance.name,
+  'malId': ?instance.malId,
+  'description': ?instance.description,
+  'image': ?instance.image,
+};
+
+CharacterRelationship _$CharacterRelationshipFromJson(
+  Map<String, dynamic> json,
+) => CharacterRelationship(
+  primaryMedia: json['primaryMedia'] == null
+      ? null
+      : KitsuRelation.fromJson(json['primaryMedia'] as Map<String, dynamic>),
+  castings: json['castings'] == null
+      ? null
+      : KitsuRelation.fromJson(json['castings'] as Map<String, dynamic>),
+  mediaCharacters: json['mediaCharacters'] == null
+      ? null
+      : KitsuRelation.fromJson(json['mediaCharacters'] as Map<String, dynamic>),
+  quotes: json['quotes'] == null
+      ? null
+      : KitsuRelation.fromJson(json['quotes'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$CharacterRelationshipToJson(
+  CharacterRelationship instance,
+) => <String, dynamic>{
+  'primaryMedia': ?instance.primaryMedia,
+  'castings': ?instance.castings,
+  'mediaCharacters': ?instance.mediaCharacters,
+  'quotes': ?instance.quotes,
+};
+
+CharacterResult _$CharacterResultFromJson(Map<String, dynamic> json) =>
+    CharacterResult(
+        data: json['data'] == null
+            ? null
+            : Character.fromJson(json['data'] as Map<String, dynamic>),
+        included: inclusionExtractor(json['included']),
+      )
+      ..meta = json['meta'] == null
+          ? null
+          : KitsuMeta.fromJson(json['meta'] as Map<String, dynamic>)
+      ..links = json['links'] == null
+          ? null
+          : KitsuLinks.fromJson(json['links'] as Map<String, dynamic>);
+
+Map<String, dynamic> _$CharacterResultToJson(CharacterResult instance) =>
+    <String, dynamic>{
+      'meta': ?instance.meta,
+      'links': ?instance.links,
+      'data': ?instance.data,
+      'included': ?instance.included,
+    };
+
+CharacterResults _$CharacterResultsFromJson(Map<String, dynamic> json) =>
+    CharacterResults(
+      data: _characterListFromJson(json['data']),
+      included: inclusionExtractor(json['included']),
+      meta: json['meta'] == null
+          ? null
+          : KitsuMeta.fromJson(json['meta'] as Map<String, dynamic>),
+      links: json['links'] == null
+          ? null
+          : KitsuLinks.fromJson(json['links'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$CharacterResultsToJson(CharacterResults instance) =>
+    <String, dynamic>{
+      'data': ?instance.data,
+      'included': ?instance.included,
+      'meta': ?instance.meta,
+      'links': ?instance.links,
+    };
+
+Person _$PersonFromJson(Map<String, dynamic> json) => Person(
+  id: KitsuValueNormalizer.StringToInt(json['id']),
+  type: json['type'] as String?,
+  link: KitsuValueNormalizer.ApiSelfLinkExtractor(json['links']),
+  attributes: json['attributes'] == null
+      ? null
+      : PersonAttributes.fromJson(json['attributes'] as Map<String, dynamic>),
+  relationships: json['relationships'] == null
+      ? null
+      : PersonRelationship.fromJson(
+          json['relationships'] as Map<String, dynamic>,
+        ),
+);
+
+Map<String, dynamic> _$PersonToJson(Person instance) => <String, dynamic>{
+  'id': ?instance.id,
+  'type': ?instance.type,
+  'links': ?KitsuValueNormalizer.ApiSelfLinkToJson(instance.link),
+  'attributes': ?instance.attributes,
+  'relationships': ?instance.relationships,
+};
+
+PersonAttributes _$PersonAttributesFromJson(Map<String, dynamic> json) =>
+    PersonAttributes(
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
+      name: json['name'] as String?,
+      malId: json['malId'],
+      description: json['description'] as String?,
+      image: json['image'] as Map<String, dynamic>?,
+    );
+
+Map<String, dynamic> _$PersonAttributesToJson(PersonAttributes instance) =>
+    <String, dynamic>{
+      'createdAt': ?instance.createdAt,
+      'updatedAt': ?instance.updatedAt,
+      'name': ?instance.name,
+      'malId': ?instance.malId,
+      'description': ?instance.description,
+      'image': ?instance.image,
+    };
+
+PersonRelationship _$PersonRelationshipFromJson(Map<String, dynamic> json) =>
+    PersonRelationship(
+      castings: json['castings'] == null
+          ? null
+          : KitsuRelation.fromJson(json['castings'] as Map<String, dynamic>),
+      staff: json['staff'] == null
+          ? null
+          : KitsuRelation.fromJson(json['staff'] as Map<String, dynamic>),
+      voices: json['voices'] == null
+          ? null
+          : KitsuRelation.fromJson(json['voices'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$PersonRelationshipToJson(PersonRelationship instance) =>
+    <String, dynamic>{
+      'castings': ?instance.castings,
+      'staff': ?instance.staff,
+      'voices': ?instance.voices,
+    };
+
+PersonResult _$PersonResultFromJson(Map<String, dynamic> json) =>
+    PersonResult(
+        data: json['data'] == null
+            ? null
+            : Person.fromJson(json['data'] as Map<String, dynamic>),
+        included: inclusionExtractor(json['included']),
+      )
+      ..meta = json['meta'] == null
+          ? null
+          : KitsuMeta.fromJson(json['meta'] as Map<String, dynamic>)
+      ..links = json['links'] == null
+          ? null
+          : KitsuLinks.fromJson(json['links'] as Map<String, dynamic>);
+
+Map<String, dynamic> _$PersonResultToJson(PersonResult instance) =>
+    <String, dynamic>{
+      'meta': ?instance.meta,
+      'links': ?instance.links,
+      'data': ?instance.data,
+      'included': ?instance.included,
+    };
+
+PersonResults _$PersonResultsFromJson(Map<String, dynamic> json) =>
+    PersonResults(
+      data: _personListFromJson(json['data']),
+      included: inclusionExtractor(json['included']),
+      meta: json['meta'] == null
+          ? null
+          : KitsuMeta.fromJson(json['meta'] as Map<String, dynamic>),
+      links: json['links'] == null
+          ? null
+          : KitsuLinks.fromJson(json['links'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$PersonResultsToJson(PersonResults instance) =>
+    <String, dynamic>{
+      'data': ?instance.data,
+      'included': ?instance.included,
+      'meta': ?instance.meta,
+      'links': ?instance.links,
+    };
+
 CoverDimensions _$CoverDimensionsFromJson(Map<String, dynamic> json) =>
     CoverDimensions(
       tiny: json['tiny'] == null
@@ -1118,6 +1345,421 @@ GenreResults _$GenreResultsFromJson(Map<String, dynamic> json) => GenreResults(
 );
 
 Map<String, dynamic> _$GenreResultsToJson(GenreResults instance) =>
+    <String, dynamic>{
+      'data': ?instance.data,
+      'included': ?instance.included,
+      'meta': ?instance.meta,
+      'links': ?instance.links,
+    };
+
+Episode _$EpisodeFromJson(Map<String, dynamic> json) => Episode(
+  id: KitsuValueNormalizer.StringToInt(json['id']),
+  type: json['type'] as String?,
+  link: KitsuValueNormalizer.ApiSelfLinkExtractor(json['links']),
+  attributes: json['attributes'] == null
+      ? null
+      : EpisodeAttributes.fromJson(json['attributes'] as Map<String, dynamic>),
+  relationships: json['relationships'] == null
+      ? null
+      : EpisodeRelationship.fromJson(
+          json['relationships'] as Map<String, dynamic>,
+        ),
+);
+
+Map<String, dynamic> _$EpisodeToJson(Episode instance) => <String, dynamic>{
+  'id': ?instance.id,
+  'type': ?instance.type,
+  'links': ?KitsuValueNormalizer.ApiSelfLinkToJson(instance.link),
+  'attributes': ?instance.attributes,
+  'relationships': ?instance.relationships,
+};
+
+EpisodeAttributes _$EpisodeAttributesFromJson(Map<String, dynamic> json) =>
+    EpisodeAttributes(
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
+      synopsis: json['synopsis'] as String?,
+      description: json['description'] as String?,
+      titles: json['titles'] as Map<String, dynamic>?,
+      canonicalTitle: json['canonicalTitle'] as String?,
+      seasonNumber: (json['seasonNumber'] as num?)?.toInt(),
+      number: (json['number'] as num?)?.toInt(),
+      relativeNumber: (json['relativeNumber'] as num?)?.toInt(),
+      airdate: json['airdate'] as String?,
+      length: (json['length'] as num?)?.toInt(),
+      thumbnail: json['thumbnail'] as Map<String, dynamic>?,
+    );
+
+Map<String, dynamic> _$EpisodeAttributesToJson(EpisodeAttributes instance) =>
+    <String, dynamic>{
+      'createdAt': ?instance.createdAt,
+      'updatedAt': ?instance.updatedAt,
+      'synopsis': ?instance.synopsis,
+      'description': ?instance.description,
+      'titles': ?instance.titles,
+      'canonicalTitle': ?instance.canonicalTitle,
+      'seasonNumber': ?instance.seasonNumber,
+      'number': ?instance.number,
+      'relativeNumber': ?instance.relativeNumber,
+      'airdate': ?instance.airdate,
+      'length': ?instance.length,
+      'thumbnail': ?instance.thumbnail,
+    };
+
+EpisodeRelationship _$EpisodeRelationshipFromJson(Map<String, dynamic> json) =>
+    EpisodeRelationship(
+      media: json['media'] == null
+          ? null
+          : KitsuRelation.fromJson(json['media'] as Map<String, dynamic>),
+      videos: json['videos'] == null
+          ? null
+          : KitsuRelation.fromJson(json['videos'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$EpisodeRelationshipToJson(
+  EpisodeRelationship instance,
+) => <String, dynamic>{'media': ?instance.media, 'videos': ?instance.videos};
+
+EpisodeResult _$EpisodeResultFromJson(Map<String, dynamic> json) =>
+    EpisodeResult(
+        data: json['data'] == null
+            ? null
+            : Episode.fromJson(json['data'] as Map<String, dynamic>),
+        included: inclusionExtractor(json['included']),
+      )
+      ..meta = json['meta'] == null
+          ? null
+          : KitsuMeta.fromJson(json['meta'] as Map<String, dynamic>)
+      ..links = json['links'] == null
+          ? null
+          : KitsuLinks.fromJson(json['links'] as Map<String, dynamic>);
+
+Map<String, dynamic> _$EpisodeResultToJson(EpisodeResult instance) =>
+    <String, dynamic>{
+      'meta': ?instance.meta,
+      'links': ?instance.links,
+      'data': ?instance.data,
+      'included': ?instance.included,
+    };
+
+EpisodeResults _$EpisodeResultsFromJson(Map<String, dynamic> json) =>
+    EpisodeResults(
+      data: _episodeListFromJson(json['data']),
+      included: inclusionExtractor(json['included']),
+      meta: json['meta'] == null
+          ? null
+          : KitsuMeta.fromJson(json['meta'] as Map<String, dynamic>),
+      links: json['links'] == null
+          ? null
+          : KitsuLinks.fromJson(json['links'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$EpisodeResultsToJson(EpisodeResults instance) =>
+    <String, dynamic>{
+      'data': ?instance.data,
+      'included': ?instance.included,
+      'meta': ?instance.meta,
+      'links': ?instance.links,
+    };
+
+Chapter _$ChapterFromJson(Map<String, dynamic> json) => Chapter(
+  id: KitsuValueNormalizer.StringToInt(json['id']),
+  type: json['type'] as String?,
+  link: KitsuValueNormalizer.ApiSelfLinkExtractor(json['links']),
+  attributes: json['attributes'] == null
+      ? null
+      : ChapterAttributes.fromJson(json['attributes'] as Map<String, dynamic>),
+  relationships: json['relationships'] == null
+      ? null
+      : ChapterRelationship.fromJson(
+          json['relationships'] as Map<String, dynamic>,
+        ),
+);
+
+Map<String, dynamic> _$ChapterToJson(Chapter instance) => <String, dynamic>{
+  'id': ?instance.id,
+  'type': ?instance.type,
+  'links': ?KitsuValueNormalizer.ApiSelfLinkToJson(instance.link),
+  'attributes': ?instance.attributes,
+  'relationships': ?instance.relationships,
+};
+
+ChapterAttributes _$ChapterAttributesFromJson(Map<String, dynamic> json) =>
+    ChapterAttributes(
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
+      synopsis: json['synopsis'] as String?,
+      description: json['description'] as String?,
+      titles: json['titles'] as Map<String, dynamic>?,
+      canonicalTitle: json['canonicalTitle'] as String?,
+      volumeNumber: (json['volumeNumber'] as num?)?.toInt(),
+      number: (json['number'] as num?)?.toInt(),
+      published: json['published'] as String?,
+      length: (json['length'] as num?)?.toInt(),
+      thumbnail: json['thumbnail'] as Map<String, dynamic>?,
+    );
+
+Map<String, dynamic> _$ChapterAttributesToJson(ChapterAttributes instance) =>
+    <String, dynamic>{
+      'createdAt': ?instance.createdAt,
+      'updatedAt': ?instance.updatedAt,
+      'synopsis': ?instance.synopsis,
+      'description': ?instance.description,
+      'titles': ?instance.titles,
+      'canonicalTitle': ?instance.canonicalTitle,
+      'volumeNumber': ?instance.volumeNumber,
+      'number': ?instance.number,
+      'published': ?instance.published,
+      'length': ?instance.length,
+      'thumbnail': ?instance.thumbnail,
+    };
+
+ChapterRelationship _$ChapterRelationshipFromJson(Map<String, dynamic> json) =>
+    ChapterRelationship(
+      manga: json['manga'] == null
+          ? null
+          : KitsuRelation.fromJson(json['manga'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$ChapterRelationshipToJson(
+  ChapterRelationship instance,
+) => <String, dynamic>{'manga': ?instance.manga};
+
+ChapterResult _$ChapterResultFromJson(Map<String, dynamic> json) =>
+    ChapterResult(
+        data: json['data'] == null
+            ? null
+            : Chapter.fromJson(json['data'] as Map<String, dynamic>),
+        included: inclusionExtractor(json['included']),
+      )
+      ..meta = json['meta'] == null
+          ? null
+          : KitsuMeta.fromJson(json['meta'] as Map<String, dynamic>)
+      ..links = json['links'] == null
+          ? null
+          : KitsuLinks.fromJson(json['links'] as Map<String, dynamic>);
+
+Map<String, dynamic> _$ChapterResultToJson(ChapterResult instance) =>
+    <String, dynamic>{
+      'meta': ?instance.meta,
+      'links': ?instance.links,
+      'data': ?instance.data,
+      'included': ?instance.included,
+    };
+
+ChapterResults _$ChapterResultsFromJson(Map<String, dynamic> json) =>
+    ChapterResults(
+      data: _chapterListFromJson(json['data']),
+      included: inclusionExtractor(json['included']),
+      meta: json['meta'] == null
+          ? null
+          : KitsuMeta.fromJson(json['meta'] as Map<String, dynamic>),
+      links: json['links'] == null
+          ? null
+          : KitsuLinks.fromJson(json['links'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$ChapterResultsToJson(ChapterResults instance) =>
+    <String, dynamic>{
+      'data': ?instance.data,
+      'included': ?instance.included,
+      'meta': ?instance.meta,
+      'links': ?instance.links,
+    };
+
+StreamingLink _$StreamingLinkFromJson(Map<String, dynamic> json) =>
+    StreamingLink(
+      id: KitsuValueNormalizer.StringToInt(json['id']),
+      type: json['type'] as String?,
+      link: KitsuValueNormalizer.ApiSelfLinkExtractor(json['links']),
+      attributes: json['attributes'] == null
+          ? null
+          : StreamingLinkAttributes.fromJson(
+              json['attributes'] as Map<String, dynamic>,
+            ),
+      relationships: json['relationships'] == null
+          ? null
+          : StreamingLinkRelationship.fromJson(
+              json['relationships'] as Map<String, dynamic>,
+            ),
+    );
+
+Map<String, dynamic> _$StreamingLinkToJson(StreamingLink instance) =>
+    <String, dynamic>{
+      'id': ?instance.id,
+      'type': ?instance.type,
+      'links': ?KitsuValueNormalizer.ApiSelfLinkToJson(instance.link),
+      'attributes': ?instance.attributes,
+      'relationships': ?instance.relationships,
+    };
+
+StreamingLinkAttributes _$StreamingLinkAttributesFromJson(
+  Map<String, dynamic> json,
+) => StreamingLinkAttributes(
+  createdAt: json['createdAt'] as String?,
+  updatedAt: json['updatedAt'] as String?,
+  url: json['url'] as String?,
+  subs: (json['subs'] as List<dynamic>?)?.map((e) => e as String).toList(),
+  dubs: (json['dubs'] as List<dynamic>?)?.map((e) => e as String).toList(),
+);
+
+Map<String, dynamic> _$StreamingLinkAttributesToJson(
+  StreamingLinkAttributes instance,
+) => <String, dynamic>{
+  'createdAt': ?instance.createdAt,
+  'updatedAt': ?instance.updatedAt,
+  'url': ?instance.url,
+  'subs': ?instance.subs,
+  'dubs': ?instance.dubs,
+};
+
+StreamingLinkRelationship _$StreamingLinkRelationshipFromJson(
+  Map<String, dynamic> json,
+) => StreamingLinkRelationship(
+  streamer: json['streamer'] == null
+      ? null
+      : KitsuRelation.fromJson(json['streamer'] as Map<String, dynamic>),
+  media: json['media'] == null
+      ? null
+      : KitsuRelation.fromJson(json['media'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$StreamingLinkRelationshipToJson(
+  StreamingLinkRelationship instance,
+) => <String, dynamic>{
+  'streamer': ?instance.streamer,
+  'media': ?instance.media,
+};
+
+StreamingLinkResult _$StreamingLinkResultFromJson(Map<String, dynamic> json) =>
+    StreamingLinkResult(
+        data: json['data'] == null
+            ? null
+            : StreamingLink.fromJson(json['data'] as Map<String, dynamic>),
+        included: inclusionExtractor(json['included']),
+      )
+      ..meta = json['meta'] == null
+          ? null
+          : KitsuMeta.fromJson(json['meta'] as Map<String, dynamic>)
+      ..links = json['links'] == null
+          ? null
+          : KitsuLinks.fromJson(json['links'] as Map<String, dynamic>);
+
+Map<String, dynamic> _$StreamingLinkResultToJson(
+  StreamingLinkResult instance,
+) => <String, dynamic>{
+  'meta': ?instance.meta,
+  'links': ?instance.links,
+  'data': ?instance.data,
+  'included': ?instance.included,
+};
+
+StreamingLinkResults _$StreamingLinkResultsFromJson(
+  Map<String, dynamic> json,
+) => StreamingLinkResults(
+  data: _streamingLinkListFromJson(json['data']),
+  included: inclusionExtractor(json['included']),
+  meta: json['meta'] == null
+      ? null
+      : KitsuMeta.fromJson(json['meta'] as Map<String, dynamic>),
+  links: json['links'] == null
+      ? null
+      : KitsuLinks.fromJson(json['links'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$StreamingLinkResultsToJson(
+  StreamingLinkResults instance,
+) => <String, dynamic>{
+  'data': ?instance.data,
+  'included': ?instance.included,
+  'meta': ?instance.meta,
+  'links': ?instance.links,
+};
+
+Mapping _$MappingFromJson(Map<String, dynamic> json) => Mapping(
+  id: KitsuValueNormalizer.StringToInt(json['id']),
+  type: json['type'] as String?,
+  link: KitsuValueNormalizer.ApiSelfLinkExtractor(json['links']),
+  attributes: json['attributes'] == null
+      ? null
+      : MappingAttributes.fromJson(json['attributes'] as Map<String, dynamic>),
+  relationships: json['relationships'] == null
+      ? null
+      : MappingRelationship.fromJson(
+          json['relationships'] as Map<String, dynamic>,
+        ),
+);
+
+Map<String, dynamic> _$MappingToJson(Mapping instance) => <String, dynamic>{
+  'id': ?instance.id,
+  'type': ?instance.type,
+  'links': ?KitsuValueNormalizer.ApiSelfLinkToJson(instance.link),
+  'attributes': ?instance.attributes,
+  'relationships': ?instance.relationships,
+};
+
+MappingAttributes _$MappingAttributesFromJson(Map<String, dynamic> json) =>
+    MappingAttributes(
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
+      externalSite: json['externalSite'] as String?,
+      externalId: json['externalId'] as String?,
+    );
+
+Map<String, dynamic> _$MappingAttributesToJson(MappingAttributes instance) =>
+    <String, dynamic>{
+      'createdAt': ?instance.createdAt,
+      'updatedAt': ?instance.updatedAt,
+      'externalSite': ?instance.externalSite,
+      'externalId': ?instance.externalId,
+    };
+
+MappingRelationship _$MappingRelationshipFromJson(Map<String, dynamic> json) =>
+    MappingRelationship(
+      item: json['item'] == null
+          ? null
+          : KitsuRelation.fromJson(json['item'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$MappingRelationshipToJson(
+  MappingRelationship instance,
+) => <String, dynamic>{'item': ?instance.item};
+
+MappingResult _$MappingResultFromJson(Map<String, dynamic> json) =>
+    MappingResult(
+        data: json['data'] == null
+            ? null
+            : Mapping.fromJson(json['data'] as Map<String, dynamic>),
+        included: inclusionExtractor(json['included']),
+      )
+      ..meta = json['meta'] == null
+          ? null
+          : KitsuMeta.fromJson(json['meta'] as Map<String, dynamic>)
+      ..links = json['links'] == null
+          ? null
+          : KitsuLinks.fromJson(json['links'] as Map<String, dynamic>);
+
+Map<String, dynamic> _$MappingResultToJson(MappingResult instance) =>
+    <String, dynamic>{
+      'meta': ?instance.meta,
+      'links': ?instance.links,
+      'data': ?instance.data,
+      'included': ?instance.included,
+    };
+
+MappingResults _$MappingResultsFromJson(Map<String, dynamic> json) =>
+    MappingResults(
+      data: _mappingListFromJson(json['data']),
+      included: inclusionExtractor(json['included']),
+      meta: json['meta'] == null
+          ? null
+          : KitsuMeta.fromJson(json['meta'] as Map<String, dynamic>),
+      links: json['links'] == null
+          ? null
+          : KitsuLinks.fromJson(json['links'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$MappingResultsToJson(MappingResults instance) =>
     <String, dynamic>{
       'data': ?instance.data,
       'included': ?instance.included,

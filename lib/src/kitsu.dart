@@ -60,6 +60,20 @@ part 'package:kitsumon/src/kitsu/characters_and_people/anime_characters/anime_ch
 part 'package:kitsumon/src/kitsu/characters_and_people/anime_characters/anime_character_result.dart';
 part 'package:kitsumon/src/kitsu/characters_and_people/anime_characters/anime_characters_results.dart';
 
+// Characters
+part 'package:kitsumon/src/kitsu/characters_and_people/characters/character.dart';
+part 'package:kitsumon/src/kitsu/characters_and_people/characters/character_attributes.dart';
+part 'package:kitsumon/src/kitsu/characters_and_people/characters/character_relationship.dart';
+part 'package:kitsumon/src/kitsu/characters_and_people/characters/character_result.dart';
+part 'package:kitsumon/src/kitsu/characters_and_people/characters/character_results.dart';
+
+// People
+part 'package:kitsumon/src/kitsu/characters_and_people/people/person.dart';
+part 'package:kitsumon/src/kitsu/characters_and_people/people/person_attributes.dart';
+part 'package:kitsumon/src/kitsu/characters_and_people/people/person_relationship.dart';
+part 'package:kitsumon/src/kitsu/characters_and_people/people/person_result.dart';
+part 'package:kitsumon/src/kitsu/characters_and_people/people/person_results.dart';
+
 // // // Groups // // //
 
 // // // Media // // //
@@ -101,6 +115,34 @@ part 'package:kitsumon/src/kitsu/media/genres/genre_attributes.dart';
 part 'package:kitsumon/src/kitsu/media/genres/genre.dart';
 part 'package:kitsumon/src/kitsu/media/genres/genre_result.dart';
 part 'package:kitsumon/src/kitsu/media/genres/genre_results.dart';
+
+// Episodes
+part 'package:kitsumon/src/kitsu/media/episodes/episode.dart';
+part 'package:kitsumon/src/kitsu/media/episodes/episode_attributes.dart';
+part 'package:kitsumon/src/kitsu/media/episodes/episode_relationship.dart';
+part 'package:kitsumon/src/kitsu/media/episodes/episode_result.dart';
+part 'package:kitsumon/src/kitsu/media/episodes/episode_results.dart';
+
+// Chapters
+part 'package:kitsumon/src/kitsu/media/chapters/chapter.dart';
+part 'package:kitsumon/src/kitsu/media/chapters/chapter_attributes.dart';
+part 'package:kitsumon/src/kitsu/media/chapters/chapter_relationship.dart';
+part 'package:kitsumon/src/kitsu/media/chapters/chapter_result.dart';
+part 'package:kitsumon/src/kitsu/media/chapters/chapter_results.dart';
+
+// Streaming Links
+part 'package:kitsumon/src/kitsu/media/streaming_links/streaming_link.dart';
+part 'package:kitsumon/src/kitsu/media/streaming_links/streaming_link_attributes.dart';
+part 'package:kitsumon/src/kitsu/media/streaming_links/streaming_link_relationship.dart';
+part 'package:kitsumon/src/kitsu/media/streaming_links/streaming_link_result.dart';
+part 'package:kitsumon/src/kitsu/media/streaming_links/streaming_link_results.dart';
+
+// Mappings
+part 'package:kitsumon/src/kitsu/media/mappings/mapping.dart';
+part 'package:kitsumon/src/kitsu/media/mappings/mapping_attributes.dart';
+part 'package:kitsumon/src/kitsu/media/mappings/mapping_relationship.dart';
+part 'package:kitsumon/src/kitsu/media/mappings/mapping_result.dart';
+part 'package:kitsumon/src/kitsu/media/mappings/mapping_results.dart';
 
 // // // Posts // // //
 

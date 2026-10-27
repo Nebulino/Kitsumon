@@ -1,5 +1,15 @@
 ## Unreleased
 
+- Implemented Phase 3 of the roadmap (Media Extensions / Child Resources, Characters & People):
+  - `EpisodesMethods` (`fetchCollection` supporting `mediaType`, `mediaId`, `number`, `seasonNumber`, `fetchResource`) over `/edge/episodes`, with models `Episode`, `EpisodeAttributes`, `EpisodeResults`, `EpisodeResult`, and `EpisodeRelationship`.
+  - `ChaptersMethods` (`fetchCollection` supporting `mangaId`, `number`, `volumeNumber`, `fetchResource`) over `/edge/chapters`, with models `Chapter`, `ChapterAttributes`, `ChapterResults`, `ChapterResult`, and `ChapterRelationship`.
+  - `StreamingLinksMethods` (`fetchCollection` supporting `mediaType`, `mediaId`, `streamerId`, `fetchResource`) over `/edge/streaming-links`, with models `StreamingLink`, `StreamingLinkAttributes`, `StreamingLinkResults`, `StreamingLinkResult`, and `StreamingLinkRelationship`.
+  - `MappingsMethods` (`fetchCollection` supporting `externalSite`, `externalId`, `itemId`, `itemType`, `fetchResource`) over `/edge/mappings`, with models `Mapping`, `MappingAttributes`, `MappingResults`, `MappingResult`, and `MappingRelationship`.
+  - `CharactersMethods` (`fetchCollection` supporting `name`, `slug`, `malId`, `fetchResource`, `fetchBySlug`) over `/edge/characters`, with models `Character`, `CharacterAttributes`, `CharacterResults`, `CharacterResult`, and `CharacterRelationship`.
+  - `PeopleMethods` (`fetchCollection` supporting `name`, `slug`, `malId`, `fetchResource`, `fetchBySlug`) over `/edge/people`, with models `Person`, `PersonAttributes`, `PersonResults`, `PersonResult`, and `PersonRelationship`.
+  - Exposed the new methods on `Media` (`kitsumon.media.episodes`, `kitsumon.media.chapters`, `kitsumon.media.streamingLinks`, `kitsumon.media.mappings`) and `CharactersAndPeople` (`kitsumon.charactersAndPeople.characters`, `kitsumon.charactersAndPeople.people`), and exported them via `lib/kitsu_methods.dart`.
+  - Added unit test suites for all 6 new method groups in `test/media/` and `test/characters_and_people/` with real API fixture payloads.
+
 - `KitsuClient` now registers the same interceptor stack on a `Dio` you inject
   as on one it builds itself: null query/body parameters are stripped, timeouts
   surface as a `KitsumonException` (as the `DioException.error`) and JSON:API

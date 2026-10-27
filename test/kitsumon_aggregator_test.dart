@@ -41,12 +41,34 @@ void main() {
         expect(kitsumon.media.anime, isA<AnimeMethods>());
         expect(kitsumon.media.anime.api, same(kitsu));
         expect(kitsumon.media.anime.methodRadix, equals('anime'));
+        expect(kitsumon.media.episodes, isA<EpisodesMethods>());
+        expect(kitsumon.media.episodes.api, same(kitsu));
+        expect(kitsumon.media.episodes.methodRadix, equals('episodes'));
+        expect(kitsumon.media.chapters, isA<ChaptersMethods>());
+        expect(kitsumon.media.chapters.api, same(kitsu));
+        expect(kitsumon.media.chapters.methodRadix, equals('chapters'));
+        expect(kitsumon.media.streamingLinks, isA<StreamingLinksMethods>());
+        expect(kitsumon.media.streamingLinks.api, same(kitsu));
+        expect(kitsumon.media.streamingLinks.methodRadix,
+            equals('streaming-links'));
+        expect(kitsumon.media.mappings, isA<MappingsMethods>());
+        expect(kitsumon.media.mappings.api, same(kitsu));
+        expect(kitsumon.media.mappings.methodRadix, equals('mappings'));
         expect(kitsumon.charactersAndPeople, isA<CharactersAndPeople>());
         expect(kitsumon.charactersAndPeople.animeCharacters,
             isA<AnimeCharactersMethods>());
         expect(kitsumon.charactersAndPeople.animeCharacters.api, same(kitsu));
         expect(kitsumon.charactersAndPeople.animeCharacters.methodRadix,
             equals('anime-characters'));
+        expect(kitsumon.charactersAndPeople.characters,
+            isA<CharactersMethods>());
+        expect(kitsumon.charactersAndPeople.characters.api, same(kitsu));
+        expect(kitsumon.charactersAndPeople.characters.methodRadix,
+            equals('characters'));
+        expect(kitsumon.charactersAndPeople.people, isA<PeopleMethods>());
+        expect(kitsumon.charactersAndPeople.people.api, same(kitsu));
+        expect(kitsumon.charactersAndPeople.people.methodRadix,
+            equals('people'));
         expect(Kitsumon.instance, same(kitsumon));
       });
     }
