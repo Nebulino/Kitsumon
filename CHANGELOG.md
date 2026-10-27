@@ -1,4 +1,4 @@
-## Unreleased
+## 0.3.0
 
 - Implemented Phase 3 of the roadmap (Media Extensions / Child Resources, Characters & People):
   - `EpisodesMethods` (`fetchCollection` supporting `mediaType`, `mediaId`, `number`, `seasonNumber`, `fetchResource`) over `/edge/episodes`, with models `Episode`, `EpisodeAttributes`, `EpisodeResults`, `EpisodeResult`, and `EpisodeRelationship`.
