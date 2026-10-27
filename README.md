@@ -10,41 +10,50 @@ A fox-powered Kitsu.io API wrapper for Dart & Flutter.
 
 </div>
 
+---
+
 ## Meaning
 
 From *Kitsu*, the anime discovery platform, and *Kitsumon* (詰問), which means questioning or asking in Japanese.
 
-Kitsumon is a typed JSON:API client for Kitsu: browsing anime and manga, their episodes, chapters, characters and
-staff, plus the authenticated side, the user library you actually track your progress in.
+If you love Kitsu.io and want a clean, typed way of querying their API for anime, manga, and characters, Kitsumon is made for you!
+
+---
 
 ## Installation
 
+Add `kitsumon` to your `pubspec.yaml`:
+
 ```yaml
 dependencies:
-  kitsumon: ^0.3.0
+  kitsumon: ^0.2.0
 ```
+
+Or via terminal:
 
 ```bash
 dart pub add kitsumon
 ```
 
-## Quick start
+---
+
+## Usage
+
+### 1. Basic Initialization
 
 ```dart
 import 'package:kitsumon/kitsumon.dart';
 
 void main() async {
+  // Unauthenticated client
   final kitsumon = Kitsumon(kitsu: Kitsu.noAuth());
 
-  final anime = await kitsumon.media.anime.fetchResource(1);
-  print('${anime.data?.attributes?.canonicalTitle}');
+  // Or with credentials (when supported)
+  // final kitsumon = Kitsumon(kitsu: Kitsu(auth: KitsuAuth(...)));
 }
 ```
 
-## Searching anime
-
-Filters, pagination, sorting, includes and sparse fieldsets compose on the same call. A parameter you leave
-`null` is not sent at all, so the query stays as small as you asked for.
+### 2. Fetching Anime Collections with Filters
 
 ```dart
 import 'package:kitsumon/kitsumon.dart';
@@ -52,144 +61,62 @@ import 'package:kitsumon/kitsumon.dart';
 void main() async {
   final kitsumon = Kitsumon(kitsu: Kitsu.noAuth());
 
-  final results = await kitsumon.media.anime.fetchCollection(
+  // Fetch anime by text search, season, or category
+  final result = await kitsumon.media.anime.fetchCollection(
     text: 'Cowboy Bebop',
-    status: [AnimeStatus.finished],
-    pagination: Pagination(limit: 10),
-    sorting: Sorting('popularityRank'),
-    includes: Includes(['genres']),
-    sparseFieldSets: SparseFieldSets('anime', ['canonicalTitle', 'averageRating']),
+    pageLimit: 10,
+    sort: [Sort.popularityRankAscending],
   );
 
-  for (final anime in results.data ?? <Anime>[]) {
-    print('${anime.attributes?.canonicalTitle} (${anime.attributes?.averageRating})');
+  for (final anime in result.data ?? []) {
+    print('${anime.attributes?.canonicalTitle} (Rating: ${anime.attributes?.averageRating})');
   }
 }
 ```
 
-Trending anime and trending manga have their own endpoints:
-
-```dart
-final trending = await kitsumon.media.trendingManga.fetchTrending();
-```
-
-## Manga, episodes, chapters
-
-Every media kind follows the same shape: `fetchCollection`, `fetchResource`, `fetchBySlug`.
-
-```dart
-final manga = await kitsumon.media.manga.fetchBySlug('guardian-dog');
-final episodes = await kitsumon.media.episodes.fetchCollection(mediaId: 1);
-final chapters = await kitsumon.media.chapters.fetchCollection(mangaId: 2);
-final links = await kitsumon.media.streamingLinks.fetchCollection(mediaId: 1);
-final mappings = await kitsumon.media.mappings.fetchCollection(
-  externalSite: 'myanimelist/anime',
-  externalId: '1',
-);
-```
-
-Taxonomies are available too, with typed filters rather than raw maps:
-
-```dart
-final categories = await kitsumon.media.categories.fetchCollection(title: 'action');
-final genres = await kitsumon.media.genres.fetchCollection(name: 'Drama');
-```
-
-## Characters and people
-
-```dart
-final character = await kitsumon.charactersAndPeople.characters.fetchBySlug('spike-spiegel');
-final person = await kitsumon.charactersAndPeople.people.fetchResource(11614);
-```
-
-## Authentication and the user library
-
-Kitsu logs in with an OAuth2 password grant. Kitsumon refreshes the token itself: on a `401` it exchanges the
-refresh token once, rewrites the bearer header and replays the request. A second `401` is surfaced as an error
-instead of looping.
+### 3. Fetching Anime Characters & Details
 
 ```dart
 import 'package:kitsumon/kitsumon.dart';
 
 void main() async {
-  final kitsu = await Kitsu.authenticate(
-    username: 'you@example.com',
-    password: 'your-password',
-  );
-  final kitsumon = Kitsumon(kitsu: kitsu);
+  final kitsumon = Kitsumon(kitsu: Kitsu.noAuth());
 
-  final me = await kitsumon.users.fetchCurrentUser();
-  print('Hello ${me.data?.attributes?.name}');
-
-  // Track a title: only the attributes you pass are sent.
-  final entry = await kitsumon.libraryEntries.createResource(
-    userId: me.data!.id!,
-    mediaId: 1,
-    mediaType: 'anime',
-    status: LibraryEntryStatus.current,
-    progress: 3,
+  // Fetch anime character details
+  final characterResponse = await kitsumon.charactersAndPeople.animeCharacters.fetchResource(
+    11614,
+    includes: Includes(['anime']),
+    sparseFieldSets: SparseFieldSets('anime', ['canonicalTitle', 'createdAt']),
   );
 
-  final updated = await kitsumon.libraryEntries.updateResource(
-    entry.data!.id!,
-    progress: 12,
-    ratingTwenty: 18,
-  );
-
-  final mine = await kitsumon.libraryEntries.fetchCollection(
-    userId: me.data!.id,
-    includeMedia: true,
-  );
-
-  await kitsumon.libraryEntries.deleteResource(entry.data!.id!);
-  print('${updated.data?.attributes?.typedStatus} ${mine.data?.length}');
+  print('Role: ${characterResponse.data?.attributes?.role}');
 }
 ```
 
-`LibraryEntryStatus` covers `current`, `planned`, `completed`, `onHold` and `dropped`. Kitsu is free to add
-values: an unrecognised status is kept as the raw string in `LibraryEntryAttributes.status` and
-`typedStatus` returns `null` instead of throwing.
+---
 
-## Proxy
+## Building from Source
 
-Every `Kitsu` entry point accepts `proxy: 'host:port'`. The proxy is applied on native platforms through
-`HttpClient.findProxy`, and TLS certificates stay fully verified. In the browser the proxy belongs to the
-browser, so the value is ignored.
+To regenerate `.g.dart` serialization code:
 
-## What is implemented
+```bash
+sh ./build.sh
+```
 
-| Area | Methods |
-| :--- | :--- |
-| Anime | `fetchCollection`, `fetchResource`, `fetchBySlug`, `fetchTrending` |
-| Manga | `fetchCollection`, `fetchResource`, `fetchBySlug`, `fetchTrending` |
-| Categories, Genres | `fetchCollection`, `fetchResource` |
-| Episodes, Chapters | `fetchCollection`, `fetchResource` |
-| Streaming links, Mappings | `fetchCollection`, `fetchResource` |
-| Characters, People | `fetchCollection`, `fetchResource`, `fetchBySlug` |
-| Users | `fetchCollection`, `fetchResource`, `fetchBySlug`, `fetchCurrentUser` |
-| Library entries | `fetchCollection`, `fetchResource`, `createResource`, `updateResource`, `deleteResource` |
-
-Social features (posts, comments, reviews, reactions) and groups are on the roadmap, not in this release.
-
-## Development
-
-Regenerate the serialization code after touching an annotated model:
+Or directly via `build_runner`:
 
 ```bash
 dart run build_runner build
 ```
 
-The analyzer must stay free of issues, infos included, and the whole suite runs offline against a fake
-`HttpClientAdapter`, so no test ever reaches Kitsu:
 
-```bash
-dart analyze --fatal-infos .
-dart test
-```
+---
 
 ## Features and Bugs
 
-Feature requests and bug reports go to the [GitHub issue tracker](https://github.com/Nebulino/Kitsumon/issues).
+Please file feature requests and bug reports on the [GitHub Issue Tracker](https://github.com/Nebulino/Kitsumon/issues).
+
+---
 
 ## License
 
